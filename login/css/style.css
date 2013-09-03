@@ -1,0 +1,40 @@
+﻿/* Copyright Mario Luis V. */
+/* http://www.marioluis.com */
+
+* {margin: auto;padding: 0;}
+
+body {background:url(../images/sima_fondo.jpg) left repeat;} font-family:rockwell; font-size:12px; color:#000;text-align:center;}
+  
+p {margin:30px; padding:0px;}
+ 
+a img{border: 0px;}
+
+.left{float:left;}
+
+.clear{clear:both;}
+
+.right{float:right;}
+
+:focus{outline:none;}
+ 
+a {text-decoration:none;cursor:pointer;}
+
+
+/* Form Style Starts Here */
+
+#main_body {width:526px;margin-top:50px;margin-right:300px;text-align:center;height:295px;background:url(../images/sima_ltsc1.png) no-repeat left;padding:50px 0px 0px 40px }
+
+.form_title{width:176px;text-align:left;margin-left:0px;}
+
+.form_box{padding-top:350px;color:#000;font-size:18px;}
+
+.form_text{color:#FFF;font-size:18px;float:left;padding-top:13px;}
+
+.form_input_BG{width:259px; background:url(../images/form_input1.png) center left no-repeat; margin-left:10px;border:500px;height:42px;float:left;}
+
+.form_input_BG input[type="text"]{margin:12px 0px 0px 5px;border:none;width:220px;background:none;}
+.form_input_BG input[type="password"]{margin:12px 0px 0px 5px;border:none;width:220px;background:none;}
+ 
+.form_check_box{margin-left:243px;margin-top:-7px;}
+
+.form_login_signup_btn input{margin-left:25px;margin-top:23px;}

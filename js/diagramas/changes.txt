@@ -1,0 +1,36 @@
+======================================================================================
+Project     : as-diagrams
+File        : changes.txt (changes history)
+author      : Alexander Selifonov
+internet    : http://as-works.narod.ru/en/php/index.html
+email       : as-works@narod.ru
+======================================================================================
+Description :  Bar chart drawing PHP class, without GD libraries using.
+PHP version :  4.x or greater (not tested on PHP5 !)
+
+16.01.2007
+  - legend arrays can be 2-dimentional (key,value for titles)
+  - configurable "hiding" for empty rows and bar columns (ALL zero containing rows
+    and bars won't be drawn)
+
+17.01.2006 - 19.04.2006, V. 1.0.10
+  - totals 'per column' added
+  - Multiple percent rows now possible (ShowPercents var is array now !)
+
+09.12.2005, V. 1.0.7
+  - showing 'percents' row added (variable ShowPercents)
+  - changed icon images naming
+
+06.10.2005, Version 1.0.1
+
+  - New variables in the class definition: legendx_url, legendx_onClick, $legendx_id,
+    for making "linked" legend titles (<a href=... [onClick='...']>title-NN</a> ...
+  - Documentation changes
+
+27.09.2005
+
+  - Documentation small fixes (english and russian pages)
+
+26.09.2005 v.1.0.0 
+
+  - First publication

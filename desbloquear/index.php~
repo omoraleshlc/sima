@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-AU">
+<head>
+ <title>Sistema Integral Medico Administrativo, HLC</title>
+ <meta name="keywords" content="Sleek & Modern Login Form, sleek, modern, Web Resource, Where design has a new dimension, Freebies, Design3, Design3Edge, Sada, HTML, Photoshop, CSS, Web Resource, Vector, Design Elements, Tutorials, CoreDraw, Graphic Design,  web design,  design,  vector,  graphics,  brushes,  shapes,  backgrounds,  textures,  wallpapers,  tutorials,  web 2.0,  icons,  art,  icons,  illustrator, wordpress, clean, modern, web, internet, professional, Free templates, free themes, themes, templates, forms, business cards, corporate identity, web elements, visiting cards, wordpress themes, wordpress templates, posts, blogs, free elements, business templates, corporate templates, login forms, hosting, premium templates, wordpress plugins, Vcard themes, Vcard templates, hosting packages, menus, design elements, design resources" />
+ 
+ <meta http-equiv="content-type" content="application/xhtml; charset=UTF-8" />
+ 
+ <link rel="stylesheet" type="text/css" href="login/css/style.css" />
+
+  <!--[if lt IE 8.]>
+<link rel="stylesheet" type="text/css" href="css/style-ie.css" />
+<![endif]-->
+ <!--[if lt IE 7.]>
+<link rel="stylesheet" type="text/css" href="css/style-ie6.css" />
+<![endif]-->
+<script>
+function vacio(q) {   
+        for ( i = 0; i < q.length; i++ ) {   
+                if ( q.charAt(i) != " " ) {   
+                        return true   
+                }   
+        }   
+        return false   
+}   
+  
+//valida que el campo no este vacio y no tenga solo espacios en blanco   
+function valida(F) {   
+           
+        if( vacio(F.username.value) == false ) {   
+                alert("Por Favor, introduce el nombre de usuario!")   
+                return false   
+        } else if( vacio(F.password.value) == false ) {   
+                alert("Por Favor, escribe tu contraseña!")   
+                return false   
+        } 
+           
+}   
+  
+  
+  
+  
+</script>
+
+</head>
+
+<body>
+
+<!-- Main Body Starts Here -->
+<div id="main_body">
+
+<!-- Form Title Starts Here -->
+<div class="form_title">
+<img src="login/images/form_title.gif" alt="Sleek &amp; Modern Login Form - Design3Edge" />
+</div>
+<!-- Form Title Ends Here -->
+
+<!-- Form Starts Here -->
+<div class="form_box">
+
+<form id="form1" name="form1" method="post" action="MenuIndex.php" onSubmit="return valida(this);">
+
+<!-- User Name -->
+<p class="form_text">
+*User Name
+</p>
+
+<p class="form_input_BG"> <input name="username" type="text" class="Estilo1" id="username" size="15" /></p>
+<!-- User Name -->
+
+<!-- Clear -->
+<p class="clear">&nbsp;
+</p>
+<!-- Clear -->
+
+<!-- Password -->
+<p class="form_text" style="margin-left:8px;">
+*Password
+</p>
+
+<p class="form_input_BG"><input name="password" type="password" class="Estilo1" id="password" size="15" /></p>
+<!-- Password -->
+
+<!-- Clear -->
+<p class="clear">&nbsp;
+</p>
+<!-- Clear -->
+
+<p class="form_check_box">
+Remember me <input type="checkbox" name="chk" id="chk" checked="checked" value=""/>
+</p>
+
+<p class="form_login_signup_btn">
+<input title="login Now" style="margin-left:96px;" type="image" src="login/images/login_btn.png" name="ingresar" id="login" />
+
+</p>
+
+</form>
+
+</div>
+<!-- Form Ends Here -->
+
+</div>
+<!-- Main Body Ends Here -->
+
+<!-- Copyright -->
+
+<!-- Copyright -->
+<form id="form2" name="form2" method="post" action="">
+</form>
+ </body>
+</html>

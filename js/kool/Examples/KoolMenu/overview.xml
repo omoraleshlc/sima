@@ -1,0 +1,19 @@
+<control>
+	<name>KoolMenu - Great PHP Menu</name>
+	<metadescription>Great PHP Menu for your php website navigation.</metadescription>
+	<metakeywords>php menu,php drop down menu,javascript menu</metakeywords>	 
+	<description>Great PHP Menu for your php website navigation.</description>
+	<examples>
+		<example	name="First Look" 
+					link="Features/FirstLook/index.php" 
+					image="Features/FirstLook/preview.gif"/>
+
+		<example	name="Item Flow" 
+					link="Features/Item_Flow/index.php" 
+					image="Features/Item_Flow/preview.gif"/>
+
+		<example	name="ContextMenu" 
+					link="ContextMenu/Basic/index.php" 
+					image="ContextMenu/Basic/preview.gif"/>
+	</examples>			
+</control>

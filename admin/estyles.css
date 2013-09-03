@@ -1,0 +1,284 @@
+/* 
+    Document   : estyles
+    Created on : Nov 28, 2012, 12:16:57 PM
+    Author     : wake
+    Description:
+        Purpose of the stylesheet follows.
+*/
+@charset "utf-8";
+html, body, address, blockquote, div, dl, form, h1, h2, h3, h4, h5, h6, ol, p, pre, table, ul, dd, dt, li, tbody, td, tfoot, th, thead, tr, button, del, ins, map, object, a, abbr, acronym, b, bdo, big, br, cite, code, dfn, em, i, img, kbd, q, samp, small, span, strong, sub, sup, tt, var, legend, fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    background-color: #F0EDE4;
+    color: #000000;
+    font-family: arial,sans-serif;
+}
+body, td p {
+    font-size: small;
+}
+
+table caption, table th, table td {
+    background-color: #E8E5E5;
+    margin: 0.1em;
+    padding: 0.3em;
+    text-shadow: 0 1px 0 #FFFFFF;
+    vertical-align: top;
+}
+table {
+    border-collapse: collapse;
+}
+th {
+    background: -moz-linear-gradient(center top , #FFFFFF, #CCCCCC) repeat scroll 0 0 transparent;
+    color: #000000;
+    font-weight: bold;
+}
+
+td.disabled {
+    background-color: #333333;
+    color: #AAAAAA;
+}
+
+td#logo {
+    padding-right: 8px;
+}
+
+
+
+
+
+
+#nav {
+    padding: 8px 10px 10px 8px;
+    width: 140px;
+}
+#nav ul.main, #nav ul.sub {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 10px 0 0;
+}
+#nav ul.main li {
+    padding-bottom: 10px;
+    text-align: left;
+}
+#nav ul li.selected a {
+    color: #333333;
+    font-weight: bold;
+    text-decoration: none;
+}
+#nav ul.right li {
+    text-align: right;
+}
+#nav ul.sub li {
+    padding: 0 0 0 3px;
+}
+td#content {
+}
+h1 {
+    color: #FFFFFF;
+    font-family: 'Bubblegum Sans',cursive;
+    font-size: 30px;
+    text-shadow: 1px 1px 10px #FFFFFF;
+}
+h2 {
+    font-size: 120%;
+    padding-bottom: 3px;
+    padding-top: 3px;
+}
+h2.pageHeader {
+    border: medium none;
+    margin-top: 8px;
+    padding-top: 0;
+}
+h3 {
+    font-size: 110%;
+}
+h4 {
+    font-size: 110%;
+    font-weight: normal;
+    margin: 0 0 8px;
+    padding-bottom: 4px;
+}
+h5 {
+    font-size: 24px;
+}
+h2, h3, h4 {
+    color: #333333;
+}
+h2, h4 {
+    border-bottom: 1px solid #CCCCCC;
+}
+table.bubble {
+    background-color: #DDECF8;
+}
+td.bubble-content {
+    padding: 6px;
+}
+#footer {
+    border-top: 1px solid #CCCCCC;
+    color: #666666;
+    font-size: 11px;
+    margin-top: 20px;
+    padding-top: 12px;
+}
+.centered_footer {
+    text-align: center;
+}
+.style1 {
+    color: #2461AA;
+    font-weight: bold;
+}
+.header1 {
+    color: #666666;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+p.prodCont {
+    margin-left: 5px;
+}
+.style4 {
+    color: #666666;
+}
+.style3 {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+.style5 {
+    color: #999999;
+}
+#buttonTable {
+    background: none repeat scroll 0 0 #F5F5F5;
+    margin-top: 15px;
+}
+.btn {
+    margin-top: 27px;
+}
+.greyLine {
+    margin: 10px 0;
+}
+.prodImg {
+    margin-bottom: 5px;
+}
+#quickFacts {
+    list-style: none outside none;
+    margin-left: 0;
+    padding-left: 0;
+}
+#quickFacts li {
+    margin-bottom: 7px;
+}
+.thumb {
+    margin-bottom: 8px;
+}
+.ex_site {
+    float: left;
+    margin: 10px 50px 10px 0;
+    text-align: center;
+    width: 150px;
+}
+.ex_site h5 {
+    font-size: 1em;
+    font-weight: normal;
+    margin-top: 10px;
+    text-align: center;
+    width: 100%;
+}
+.ex_site img {
+    border: 1px solid #E8EEFA;
+    padding: 3px;
+}
+h2 {
+    clear: both;
+}
+h3 {
+    border-bottom: 1px solid #CCCCCC;
+    clear: both;
+    color: #000000;
+    font-size: 120%;
+    font-weight: normal;
+    margin-top: 30px;
+    padding: 0 0 3px;
+}
+p.prod_desc {
+    clear: left;
+    margin-top: 10px;
+}
+.prod_desc img {
+    float: left;
+    position: relative;
+    top: -5px;
+}
+.sitesMainVideo {
+    float: left;
+    width: 290px;
+}
+.buttonDiv {
+    clear: right;
+    float: right;
+    width: 250px;
+}
+ul.checked {
+    clear: right;
+    float: right;
+    list-style-type: none;
+    margin: 0;
+    padding: 5px 0 0;
+    text-align: left;
+    width: 250px;
+}
+ul.checked li {
+    background-image: url("//services.google.com/sites/images/check14x13_blue.gif");
+    background-repeat: no-repeat;
+    display: block;
+    line-height: 20px;
+    padding: 0 0 10px 20px;
+}
+table.c8 {
+    margin: 0 auto;
+}
+p.c7 {
+    margin-top: 20px;
+}
+h3.c6 {
+    clear: both;
+    padding-top: 20px;
+}
+object.c5 {
+    float: left;
+    margin: 0 50px 10px 0;
+}
+div.c4 {
+    text-align: center;
+    width: 250px;
+}
+h2.c3 {
+    color: #000000;
+    margin-bottom: 20px;
+    margin-top: 13px;
+}
+table.c2 {
+    margin: 0 auto;
+}
+td.c1 {
+    background-color: #999999;
+}
+
+.menu {
+    background-image: url("images/partes_hlc_r3_c1.jpg");
+    height: 100px;
+
+    
+}
+.title {
+    margin-top: -70px;
+    margin-left: 0px;    
+}
+
+.tabla {
+    margin-top: 40px;
+    margin-left: 0px;    
+}

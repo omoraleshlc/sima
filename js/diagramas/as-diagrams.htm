@@ -1,0 +1,342 @@
+<HTML>
+<HEAD><TITLE>as-diagrams: Pure HTML (no GD) bar chart drawing class</TITLE>
+<META http-equiv="Content-Type" Content="text/html; charset=windows-1251">
+<STYLE TYPE="text/css">
+<!--
+  body     { font-family:arial,helvetica;font-size:12px; }
+  pre { color:#0000FF; }
+  td   { font-family:arial,helvetica;font-size:12px;}
+  tr.odd   { background-color: #F0F0F8; color:#000000; }
+  tr.even  { background-color: #E0E0F0; color:#000000; }
+  h4       { background-color: #E0E0F0; color:#000000;
+           text-align: left; }
+  h5       { background-color: #E0E0F0; color:#000000;
+           text-align: center; }
+-->
+</STYLE>
+
+</head>
+<BODY>
+<H3>as-diagrams: Pure HTML (no GD) bar chart drawing class</H3>
+
+<div align=right><a href="as-diagrams.rus.htm">Russian version</a><br><br></div>
+
+<p>
+If You need adding some business graphics presentation to Your WEB site, you use diagrams (charts).
+The question is what kind of diagrams you need and what engine is optimal for you.
+When I came to this situation, I decided to write small PHP engine that doesn't
+use graphics library (GD) at all, because all I needed was a bar charts.
+Generated HTML code does not contain any java or javascript code,
+so it must be compatible with almost any version of browser.
+This engine implemented in OOP manner, as PHP class.
+<br>It tested and works well under PHP 4.3.x.
+
+<p>Here is an instruction of how to embed "as-diagrams" engine into your
+intranet or internet site.
+
+<br>
+<H4>Installing as-diagrams on your site</H4>
+<p>
+There is no much revolutionary in installing process:
+<ol>
+  <li>Download distributive zip file and unzip it into temporary folder.
+  If you will use diagram engine from more than one page, place as-diagrams.php file into one of
+  folders listed in your PHP.ini "include_path" variable. Otherwise, just place it
+  in the folder with your main script.
+  </li>
+  <li>Move or copy <b>img</b> folder contents into your common pictures folder
+  (You'll set relative path to this folder in the <b>$imgpath</b> variable)</li>
+  <li>Open script file as-diagrams.php in text editor and adjust some lines :
+  <pre>
+   var $bt_total = 'Totals'; // localize here or include into separate file
+   var $imgpath = '/img/'; // place all 'diagram' images in this "folder"
+  </pre>
+  <br>$bt_total = ... - localize 'Totals' title text if needed.
+  <br>$imgpath = ... - set your 'relative' path to the pictures folder.
+  </li>
+  <li>for better look find stylesheet section in as-diagrams.php and adjust it
+  to meet your web-site common design
+  </li>
+</ol>
+
+<br>
+That's it, if Your site already supports PHP 4.x, script is ready to go.
+Now we'll make it breathe.
+
+<br>
+
+<H3>Using CAsBarDiagram class</H3>
+<p>
+
+You can draw bar charts for pre-calculated data arrays, or pass SQL queries to CAsBarDiagram object variable.
+
+<ol>
+  <li>Do not forget to include engine module into your script file : <b>require_once('as-diagrams.php');</b>
+  </li>
+  <li>Define object var of CAsBarDiagram class, and set some non-default values if needed:
+  <pre>
+     $graph = new CAsBarDiagram;
+     $graph->bwidth = 15; // one bar width in pixels
+     $graph->showdigits = 0; // hide "digit presentation" part under bars (turned ON by default)
+     $graph->bt_total = 'Some totals'; // title for totals column on the right side
+     $graph->precision = 0;  // how much digits after decimal point
+     $graph->showtotals = 0;  // hide totals column, (turned ON by default)
+  </pre>
+  </li>
+
+  <a name='LEGENDS'>
+  <li>Make one- or two-dimensional arrays for "legends" - one for X axis ($legend_x),
+  and one for Y axis (Y is a number of bars in on X-th "group")
+  <br>One-dimensional legend array holds just a "keys" for every column, it's used as a key while gathering data
+  and as a legend title on the var chart (in case You use one-dim legends).
+  If You prepare two-dimensional array, the first element ($legend_x[$row][0]) in a row will be treated as a key value,
+  and the second one, $legend_x[$row][1] - as a legend title. In that case there is no need in
+  additional "key" array legendx_id.
+  Note that 'keys' only needed if Uou'll collect data from a SQL database, where your entities have
+  "digital" unique ID's (primary keys in SQL tables) and "text" representation.
+
+  <pre>
+     $legend_x = array('Yanuary','February','March','April','May','June');
+     $legend_y = array(array(1,'pens'),array(2,'pensils'),array(3,'staplers'),array(4,'paper'));
+  </pre>
+  </li>
+
+  <li>Now You can choose from 2 methods:
+    <br />1) gather data for drawing by Yourself, placing them into $data[x][y],
+      and pass $data to the bar drawing method of CAsBarDiagram class:
+    <pre>
+       $data = array( array(200,300,120), array(450,500,100), array(650,200,300),
+                      array(380,200,90), array(750,340,200));
+       $graph->DiagramBar($legend_x, $legend_y, $data, 1, 'Sales results');
+    </pre>
+    <br />2) call GatherData method, passing a SQL-query to it, so all data can be gathered
+     for You (don't forget to connect MySQL base before this !):
+    <pre>
+
+       $graph->InitData($legend_x, $legend_y); // reset internal data array if needed
+       $graph->GatherData($SQLqry, $legend_x, $legend_y);
+       // ... GatherData can be called more than once
+       $graph->DiagramBar($legend_x, $legend_y, 0, $data_title);
+    </pre>
+    Please note, in the second case You pass scalar value (0) to DiagramBar() method instead
+    of data array, so engine can choose internal data array, assembled by GatherData calls.
+  </li>
+</ol>
+
+<h3>CAsBarDiagram methods and variables</h3>
+
+<p><b>InitData($legend_x, $legend_y)</b> - this method clens up inetrnal data array from all the data.
+  It is nesessary if You use on CAsBarDiagram object var for multiple bar drawing, before collecting
+  data for second (, third, etc.) graphs. Internal data dimension becomes equal
+  to count($legend_x), count(legend_y).
+
+<p><b>GatherData($sqltext, $legend_x, $legend_y [,$position_y])</b> - executes passed SQL query on
+  currently open MySQL connection and fills internal array with result data.
+  You can fill all array rows if Your query returns three fields :<br>
+  the first one is a "key" for X-axis, second one - for Y axis, and third field is a value
+  we are going to render.
+  <br>Quary sample (MySQL)
+  <pre>
+    SELECT MONTH(sale_date) AS mnt, product, SUM(sales_val) FROM sales
+       WHERE YEAR(sale_date)=2005 GROUP BY mnt,product
+  </pre>
+  If You want to fill just one row in data array, You just design and pass two-field SQL query,
+  and an optional 4-th parameter, $position_y, defining Y-position of data column beeing filled.
+
+<p><b>DiagramBar($legend_x, $legend_y, [$data|0, [$data_title]])</b> -
+   the main method, it draws bar chart. If 3-rd paraveter is omitted or scalar value,
+   internal data array will be rendered.
+   In case of array passed, CAsBarDiagram uses it instead of internal data even if You've called GatherData() before.
+
+<p><b>$data</b> - two-dimensional data array. $data[x][y] - value for bar 'Y' in Y-th section in the bar chart.
+
+<a name='SHOWDIGITS' />
+<p><b>$showdigits</b> - turns On/Off rendering of "digit" part under bars
+  (the table with number presentation of rendered data array)
+
+<a name='SHOWPERCENTS' />
+<p><b>$ShowPercents</b> - by assigning some non-empty string to this array var You turn on "percents" drawing:
+  <br />additional rows will be rendered in the "digit" area under the bars. This row[s] will contain
+  'percent' values for two previous rows - $data[n-1]/$data[n] * 100. This feature was introduced, when
+  my boss asked me to show fact/plan in percent, knowing that the one row was a 'fact' and the next - planned values.
+  How to use it:<br />
+  Suppose, there is a data row with 'fact' values, that has a corresponding title 'Year 2005' in the $legend_y array.
+  The next row is a 'plan' data, having title 'Plan 2005' in the $legend_y.
+  So, when we need to draw "Fact/plan * 100%" values right after the 'plan' row, we just put this code before calling
+  DiagramBar() method:
+  <pre>
+    $graph->ShowPercents['Plan 2005'] = 'Percents';
+  </pre>
+  If this var set to one short letter or digit (say, '1' or '*'), the title for this row will be
+  computed from two last rows in legend_y : 'Legend_y_for_fact/Legend_y_for_plan, %'.
+  If You set a longer string, it will be used as a row title.
+  <br /> Sample:
+  <pre>
+     $graph->ShowPercents[Plan 2004'] = 'Plan 2004 reaching, percents';
+     $graph->ShowPercents[Plan 2005'] = 'Plan 2005 reaching, percents';
+     // two "percent" rows will be shown
+     $graph->DiagramBar($legend_x, $legend_y, 0, $data_title);
+  </pre>
+  If you set $graph->ShowPercents array element to non-empty value,
+  "digit" part will be rendered regardless of $graph->showdigits value.
+  (as if $showdigits was 1)
+
+<a name="drawempty">
+<p><b>$drawempty_x, $drawempty_y</b> - this varы defines "to draw OR NOT to draw" for empty columns/columns in the barchart.
+  They are equal 1 by default, i.e. all columns and rows (even with all zeroes) will be drawn.
+  You have to set it before calling DiagramBar(). The method HideEmptyX($Hide=1) can be used
+  to hide empty columns, and HideEmptyX() to hide empty rows in the digit part.
+  HideEmptyXY($val=true) can be called to set both (x and y) values.
+ <pre>
+     $grarh->drawempty_x = 0;
+     $graph->HideEmptyX(); // both operators has an equal result.
+ </pre>
+
+<p>The next three variables used for converting Your legend titles to URL links.</p>
+<ul>
+  <li><b>legendx_url</b> - this is a class variable, that can be set if You want legend titles to become URL links (anchors).
+   Just set the desired "URL" value to this var:
+   <pre>
+     $grarh = new CAsBarDiagram;
+     $graph->legendx_url = 'detailedinfo.php?info_id={ID}';
+   </pre>
+   After that all legend titles will become a &lt;A HREF...&gt;'s to Your URL. Macro "{ID}" will be substituted
+     with ID value or with  N-th element value of <b>legendx_id</b> array, it it's set.
+   </li>
+  <li><b>legendx_onClick</b> - this var holds "onClick" event value, so if You want to run some JavaScript instead of
+    opening new URL, set Your event here. For example, to open popup window with some detailed data,
+    You may fill the variable like this:
+   <pre>
+     $graph->legendx_onClick = "window.open('details.php?id={ID}', '_blank','height=300,width=400');";
+   </pre>
+  </li>
+  <li><b>legendx_id</b> - {ID} values array that will be used for creating "legend anchors".
+    If it's not set, legend X title texts will substitute {ID} values in hrefs and "onClick" event definitions.
+  </li>
+</ul>
+
+<br>
+Here's working example.
+<pre>
+require_once('as-diagrams.php');
+//... include other needed libs
+
+$data_title = 'as-diagrams demo barchart'; // title for the diagram
+
+$data = array();
+$data[] = array(900, 1300,1600);
+$data[] = array(1200,1800,2500);
+$data[] = array(1400,2000,2800);
+$data[] = array(1900,2900,3900);
+$data[] = array(2500,3500,4500);
+
+$legend_x = array('Yan','Feb','March','April','May');
+$legend_y = array('pens','pensils','staplers');
+
+$graph = new CAsBarDiagram;
+$graph->bwidth = 10; // set one bar width, pixels
+$graph->bt_total = 'Summary'; // 'totals' column title, if other than 'Totals'
+// $graph->showtotals = 0;  // uncomment it if You don't need 'totals' column
+$graph->precision = 0;  // decimal precision
+// call drawing function
+$graph->DiagramBar($legend_x, $legend_y, $data, $data_title);
+</pre>
+<br>
+As a result of calling this script You will see something like this:
+<br><!-- sample output -->
+
+<br><br><div align=center>
+<img src="sample.png" border=1 bgcolor=blue>
+</div>
+
+<br><!-- sample output ens -->
+Here are some comments about using engine.
+<ul>
+  <li>Data can contain negative values - in that case the second
+  (negative) part of a data will be drawn.<br></li>
+  <li>You can set the bar width by setting <b>$bwidth</b> variable before calling DiagramBar();
+  <li>If data array contains too much lines, leading to draw very wide page, one bar width will be
+  automatically adjusted (<b>$bwidth</b> variable). The maximum graph width is 1024 pixels
+  (for "standard" monitor resolution 1024 x 768).<br></li>
+  If You want to disable this behavior, just find in <b>as-diagrams.php</b> the code line :
+  <pre>
+  "var $autoshrink = 1024;"
+  </pre>
+   and comment it. Or, yes, You can change the maximum screen width here.
+  <br></li>
+
+  <li>As You might notice, Y axis is alwais divided into four parts, and each part has a height
+  of 60 pixels (so, maximum full Y axis height is 240 px). Image file "<b>bar-bg240.png</b>"
+  is used as a background for the main graphics area. If You want to change a background,
+  just modify this file.
+  If you want to change this "base" height, You will have to draw a new backgound image, name it
+  <b>bar-bgNNNN.png</b> (image height 1/4 of desired "full" height), and pass the new height
+  into engine: to do this, just add a line somewhere in your code,
+  before calling DiagramBar():
+  <br><b>$graf_height = NNNN;</b>
+  <br> where NNNN - your height for Y axis.
+  <br>Remember, if Your data contains positive and negative values, diagrams may be up to two times higher,
+  because of drawing two parts.
+  <br></li>
+  <li>
+  If You want to change bar colors or their order, just edit code in <b>as-diagrams.php</b>
+  or substitute original files bar-*.png. But when You'll be painting new
+  bars please keep in mind - they will be stretched/shrinked vertically and horizontally on final graphs.
+  <br></li>
+
+  <li>By default bars filled by stretched images bar-xxxxx.png. If You want "tiled" images, just
+  set non-empty value for variable <b>$btilemode</b> before calling DiagramBar():
+  <b>$btilemode=1;</b>
+  <br>In that case You will want to substitute pre-defined pictures with some "tile" looking ones.
+  </li>
+  <li>If You plan working with small or non-integer values, decimal precision will count, in that case
+  You can adjust a number of decimal digits in <b>$precision</b> variable - just set it to desired
+  value before calling DiagramBar():
+  <br><b>$precision = 4;</b>
+  <br>Default precision is 2.
+
+</ul>
+<br>
+
+<H4>Version History</H4>
+
+<h5>1.0.11 (16.01.2007)</h5>
+<ul>
+ <li>New feature: legend arrays for X and Y axis may be two-dimensional ($legend_x[] and $legend_y[]
+   respectively). In that case the first element in legend_x[i] and legend_y[i] row will be treated as "KEY" value,
+   used for gathering data, and second one as "title" in the bar chart. 
+   See the <a href="#LEGENDS">details</a>.
+   When You prepare two-dimesional legend arrays, there is no need for additional variable legendx_id.
+ </li>
+ <li>
+   Hiding "empty" columns in barchart and empty rows in "digital area" added.
+   See the variable <a href="#drawempty">$drawempty_x,$drawempty_y, and HideEmpty...() methods</a>.
+ </li>
+</ul>
+
+<h5>1.0.10 (01/17/2006)</h5>
+<ul>
+  <li>Numeric totals for columns can be drawn (in the digital view area)
+   Variable <b>showtotals</b> now has a "bitwise" meaning: bit 0 is for "per row" totals (on the right),
+      and bit 1 sets showing per-column totals (in the bottom)</li>
+  <li>many percent rows can be drawn (in the digital view area)
+  </li>
+<!--  <li></li> -->
+</ul>
+
+<br />
+<H4>Links</H4>
+<ul>
+  <li><a href="http://as-works.narod.ru/en/php/">as-diagrams and other PHP scripts collection on the author's homepage</a></li>
+  <li><a href="http://www.lutanho.net/diagram/" target="_blank">LT Diagram Builder</a> -
+      nice diagram and function draw engine, it can draw functions, pie, bar, line diagrams.
+      There are javascript, PHP and ASP versions. PHP version uses GD library.
+  </li>
+  <li><a href="http://w100w.com/english/asp/graphs_and_charts/" target="_blank">w100w.com chart/diagram engine list</a>
+  </li>
+</ul>
+<br><br><br><p>
+<hr>
+<div align=center><font size=-2>Copyright &copy; Alexander Selifonov, <a href="http://as-works.narod.ru">as-works.narod.ru</a>
+</font></div>
+</HTML></BODY>
