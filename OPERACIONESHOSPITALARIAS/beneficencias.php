@@ -1,4 +1,4 @@
-<?php require("/var/www/html/sima/OPERACIONESHOSPITALARIAS/menuOperaciones.php"); 
+<?php require("menuOperaciones.php"); 
 $ventana1='ventanaCatalogoAlmacen.php';
  ?>
 
