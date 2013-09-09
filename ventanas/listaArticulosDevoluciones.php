@@ -250,13 +250,17 @@ $tipoEntrada=$_POST['tipoEntrada'];
 $q1 = "UPDATE compras
 set 
 statRecDev='request',    
-status='sent'
+status='devolucion'
 WHERE 
 keyCO='".$_GET['keyCO']."'";
 mysql_db_query($basedatos,$q1);
 echo mysql_error();
 
-
+$q1 = "DELETE FROM compras
+WHERE 
+keyCO='".$_GET['keyCO']."'";
+//mysql_db_query($basedatos,$q1);
+echo mysql_error();
 
 
 
