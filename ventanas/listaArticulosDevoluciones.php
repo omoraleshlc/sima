@@ -248,16 +248,11 @@ $tipoEntrada=$_POST['tipoEntrada'];
 
 
 $q1 = "UPDATE compras
-    set 
+set 
 statRecDev='request',    
 status='sent'
 WHERE 
-entidad='".$entidad."'
-    and
-numSolicitud='".$_GET['numSolicitud']."'
-
-        
-";
+keyCO='".$_GET['keyCO']."'";
 mysql_db_query($basedatos,$q1);
 echo mysql_error();
 
@@ -460,7 +455,7 @@ FROM OC
 WHERE
 entidad='".$entidad."'
 and
-numSolicitud='".$_GET['numSolicitud']."'
+numFactura='".$_GET['id_factura']."'
 and
 id_proveedor='".$_GET['proveedor']."'
 ";

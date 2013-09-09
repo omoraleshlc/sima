@@ -285,7 +285,7 @@ if($myrow3['numPoliza']!=''){?>
 
 
 if($_POST['fv'] and !$_POST['resumen'] ){
-if($_POST['fecha']<$fecha1){   ?>
+if($_POST['fecha']<=$fecha1){   ?>
    
    
    

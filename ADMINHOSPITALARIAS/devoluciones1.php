@@ -115,6 +115,7 @@ $estilos->styles();
    <table width="700" class="table table-striped">
     <tr >
       <th width="17" >#</th>
+      <th width="17" >Factura</th>
       <th width="17" >Hora</th>
   
       <th width="114" >Proveedor</th>
@@ -148,7 +149,7 @@ entidad='".$entidad."'
 fecha='".$dates."'
 and
 status='sent'
-ORDER BY factura DESC";
+ORDER BY keyCO ASC";
 
 $result=mysql_db_query($basedatos,$sSQL);
 while($myrow = mysql_fetch_array($result)){ 
@@ -214,7 +215,20 @@ $myrow8a = mysql_fetch_array($result8a);
 ?>
 	  
 <tr  >
-<td  ><?php echo $a;?></td>              
+<td  ><?php echo $a;?></td>    
+
+<td >
+
+                        <span >
+
+
+
+        <?php echo $myrow['factura'];	?>
+
+      
+                  </span>
+</td>
+
   <td  ><?php echo $myrow['hora'];?></td>              
 
       <td >
@@ -276,7 +290,7 @@ $myrow8a = mysql_fetch_array($result8a);
  
   <td >
        <?php if($myrow['statusDevolucion']!='si'){?>
-        <a href="#" onclick="javascript:ventanaSecundaria('../ventanas/listaArticulosDevoluciones.php?proveedor=<?php echo $myrow['proveedor'];?>&id_factura=<?php echo $myrow['factura'];?>&descripcionProveedor=<?php echo $myrow['descripcionProveedor'];?>&numSolicitud=<?php echo $myrow['numSolicitud'];?>')">
+        <a href="#" onclick="javascript:ventanaSecundaria('../ventanas/listaArticulosDevoluciones.php?keyCO=<?php echo $myrow['keyCO'];?>&proveedor=<?php echo $myrow['proveedor'];?>&id_factura=<?php echo $myrow['factura'];?>&descripcionProveedor=<?php echo $myrow['descripcionProveedor'];?>&numSolicitud=<?php echo $myrow['numSolicitud'];?>')">
         Aplicar
         </a>
   <?php }else{ 
