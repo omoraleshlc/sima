@@ -254,6 +254,12 @@ $pdf->Cell(0,0,'Descripcion',0,0,M);
 //
 //$pdf->SetXY(160,30);
 //$pdf->Cell(0,0,'Fecha',0,0,M);
+
+
+
+$pdf->SetXY(120,30);
+$pdf->Cell(0,0,'Anaquel',0,0,M); 
+
 $pdf->SetXY(140,30);
 $pdf->Cell(0,0,'Status',0,0,M); 
 
@@ -347,7 +353,17 @@ order by keyC DESC
 
 
 
+   $sSQLgac="SELECT *
+FROM
+existencias
+WHERE 
+entidad='".$_GET['entidad']."'
+and
+almacen='".$_GET['almacenDestino']."'
 
+  ";
+  $resultgac=mysql_db_query($basedatos,$sSQLgac);
+  $myrowgac = mysql_fetch_array($resultgac);
 
 
 
@@ -374,6 +390,13 @@ $pdf->Cell(0,0,'-Devolucion-',0,0,M);
 //
 //
 //
+
+
+$pdf->SetX('120');
+$pdf->Cell(0,0,$myrowgac['anaquel'],0,0,M);
+
+
+
 $pdf->SetX('140');
 $pdf->Cell(0,0,$myrow['statusCargo'],0,0,M);
 
