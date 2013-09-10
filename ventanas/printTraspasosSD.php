@@ -360,7 +360,8 @@ WHERE
 entidad='".$_GET['entidad']."'
 and
 almacen='".$_GET['almacenDestino']."'
-
+and
+codigo='".$myrow['codProcedimiento']."'
   ";
   $resultgac=mysql_db_query($basedatos,$sSQLgac);
   $myrowgac = mysql_fetch_array($resultgac);
