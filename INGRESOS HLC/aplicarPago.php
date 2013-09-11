@@ -343,6 +343,7 @@ clientePrincipal='".$clientePrincipal."'
 statusPago!='pagado'
 and
 transaccion='si'
+
 ";
 
 

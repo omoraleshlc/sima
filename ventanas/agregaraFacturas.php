@@ -441,6 +441,8 @@ naturaleza='A'
        <th  align="center"><p align="center">#</p></th>         
        <th  align="center"><p align="center">Factura</p></th>
          <th  align="center"><p align="center">Importe</p></th>
+         <th  align="center"><p align="center">Coa/Dedu</p></th>
+         <th  align="center"><p align="center">Total</p></th>
        <th  align="center"><p align="center">Fecha</p></th>
        
        <th align="center" ><p align="center">Escoje</p></th>
@@ -454,7 +456,8 @@ $sSQL= "Select
 *
 from facturasAplicadas
 where 
-
+numFactura='SHC0023559'
+and
 entidad='".$entidad."'
 and
 clientePrincipal='".$_GET['seguro']."'
@@ -468,16 +471,49 @@ transaccion!='si'
 and
 statusPago!='aplicado'
 group  by numFactura
-order by keyAPF ASC
+order by numFactura ASC
 
    ";
 $result=mysql_db_query($basedatos,$sSQL);
 while($myrow = mysql_fetch_array($result)){
 $bandera+=1;
 
+/*
+       $sSQLw= "Select 
+*
+from facturasAplicadas
+where 
 
+entidad='".$entidad."'
+and
+numFactura='".$myrow['numFactura']."'
+group by folioVenta
+   ";
+  $resultw=mysql_db_query($basedatos,$sSQLw);
+while($myroww = mysql_fetch_array($resultw)){
+    echo '<br>';
+echo $myroww['folioVenta'];
+ }
+  */
+ /*
+  $q = "UPDATE cargosCuentaPaciente set
+numFactura='".$myrow['numFactura']."'
 
+		WHERE 
+entidad='".$entidad."'
+    and
+    folioVenta='".$myroww['folioVenta']."'
+        and
+  (tipoTransaccion='pcoa1' or tipoTransaccion='pcoa2' or tipoTransaccion='pdedu1' or tipoTransaccion='pdedu2')
+and
+naturaleza='A'
+";
+		mysql_db_query($basedatos,$q);
+		echo mysql_error();
+  
 
+}
+*/
 
 
 
@@ -515,8 +551,12 @@ and
   naturaleza='C'
   and
   transaccion!='si'
-  
-  
+  and
+  tipoTransaccion=''
+  and 
+  gpoProducto!=''
+  and
+  status='facturado'
   ";
 
   $result7=mysql_db_query($basedatos,$sSQL7);
@@ -536,15 +576,98 @@ and
   naturaleza='A'
   and
   transaccion!='si'
+  and
+  tipoTransaccion=''
+  and 
+  gpoProducto!=''
+  and
+  status='facturado'
   ";
 
   $result7d=mysql_db_query($basedatos,$sSQL7d);
   $myrow7d = mysql_fetch_array($result7d);
-echo '$'.number_format($myrow7['totalCuenta']-$myrow7d['totalCuenta'],2);
-  $cargos[0]+=$myrow7['totalCuenta']-$myrow7d['totalCuenta'];
+
+  
+  
+  
+  
+  
+
+//echo $cargos[0].'  '.$borde1;
+echo '$'.number_format(($myrow7['totalCuenta']-$myrow7d['totalCuenta']),2);
+//echo '<br>';
+
+  
+   
+  $cargos[0]+=($myrow7['totalCuenta']-$myrow7d['totalCuenta']);
+  
+  
+  
 	   }
            ?>
        </td>
+       
+        <td height="55"  align="center">
+       <?php 
+       
+   
+
+
+
+
+ 
+    
+    
+    
+    
+    
+      
+     //echo $myroww['folioVenta'];
+  //echo '<br>';
+   
+
+  $sSQLcd="SELECT
+  sum(importe*cantidad) as cc
+  FROM
+  facturasAplicadas
+  WHERE
+  entidad='".$entidad."'
+  and
+    
+  naturaleza='A'
+  and
+ numFactura='".$myrow['numFactura']."'
+  and
+  (tipoTransaccion='pcoa1' or tipoTransaccion='pcoa2' or tipoTransaccion='pdedu1' or tipoTransaccion='pdedu2')
+
+  ";
+
+  $resultcd=mysql_db_query($basedatos,$sSQLcd);
+  $myrowcd = mysql_fetch_array($resultcd);
+  //echo 'hola'.$myrowcd['totalCuenta'];
+  //echo '<br>';
+  if($myrowcd['cc']>0){
+  
+    $p=$myrowcd['cc'];
+ echo '$'.number_format($p,2);
+  }else{
+      echo '$'.number_format('0',2);
+  }
+
+
+       ?>
+       </td>
+       
+       
+        <td height="55"  align="center">
+       <?php 
+       
+        echo '$'.number_format(($myrow7['totalCuenta']-$myrow7d['totalCuenta'])-$p,2);
+
+       ?>
+       </td>
+       
+       
        
        
        <td height="55"  align="center">

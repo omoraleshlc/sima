@@ -909,8 +909,9 @@ echo mysql_error();
              entidad='".$entidad."'
              and
              folioVenta='".$folioVenta[$i]."'
-             and
-             gpoProducto!='' ";
+                 and
+                 naturaleza!='-'
+              ";
 
 
 
@@ -974,7 +975,7 @@ if(!$myrow5da['keyCAP']){
  $agrega = "INSERT INTO facturasAplicadas (
 numSolicitud,folioVenta,cantidad,
 importe,iva,gpoProducto,descripcionArticulo,descripcionGrupo,
-entidad,status,fecha,hora,numFactura,codigo,naturaleza,seguro,clientePrincipal,keyCAP
+entidad,status,fecha,hora,numFactura,codigo,naturaleza,seguro,clientePrincipal,keyCAP,tipoTransaccion
 
 )
 values 
@@ -984,7 +985,8 @@ values
 '".$precioVenta."','".$iva."','".$myrow['gpoProducto']."',
     '".$myrow['descripcionArticulo']."','".$myrow['descripcionGrupoProducto']."',
         '".$entidad."','request','".$fecha1."','".$hora1."','',
-            '".$myrow['codProcedimiento']."','".$myrow['naturaleza']."','".$_POST['seguro']."','".$_POST['seguro']."','".$myrow['keyCAP']."'
+            '".$myrow['codProcedimiento']."','".$myrow['naturaleza']."','".$_POST['seguro']."','".$_POST['seguro']."','".$myrow['keyCAP']."',
+                '".$myrow['tipoTransaccion']."'
         
 )";
 mysql_db_query($basedatos,$agrega);
@@ -1751,6 +1753,8 @@ $iva1=$myrow5c['i']-$myrow5a['id'];
   seguro!=''
   and
   statusDevolucion!='si'
+  and 
+  tipoTransaccion=''
   ";
  
   $result7=mysql_db_query($basedatos,$sSQL7);
@@ -1775,6 +1779,8 @@ $iva1=$myrow5c['i']-$myrow5a['id'];
   seguro!=''
   and
   statusDevolucion!='si'
+  and 
+  tipoTransaccion=''
   ";
  
   $result7d=mysql_db_query($basedatos,$sSQL7d);
@@ -1803,6 +1809,8 @@ $iva1=$myrow5c['i']-$myrow5a['id'];
   seguro!=''
   and
   statusDevolucion!='si'
+  and 
+  tipoTransaccion=''
   ";
  
   $result7f=mysql_db_query($basedatos,$sSQL7f);
@@ -1828,6 +1836,8 @@ and
   seguro!=''
   and
   statusDevolucion!='si'
+  and 
+  tipoTransaccion=''
   ";
  
   $result7fd=mysql_db_query($basedatos,$sSQL7fd);

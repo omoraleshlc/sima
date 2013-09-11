@@ -443,6 +443,14 @@ $sSQL12a= "Select medico,descripcion From almacenes WHERE entidad='".$myrow311['
 $result12a=mysql_db_query($basedatos,$sSQL12a);
 $myrow12a = mysql_fetch_array($result12a);
 
+$sSQL12ab= "Select * From medicos WHERE entidad='".$myrow311['entidad']."' AND numMedico = '".$myrow['medico']."'";
+$result12ab=mysql_db_query($basedatos,$sSQL12ab);
+$myrow12ab = mysql_fetch_array($result12ab);
+
+$sSQL12abc= "Select * From especialidades WHERE entidad='".$myrow311['entidad']."' AND codigo = '".$myrow12ab['especialidad']."'";
+$result12abc=mysql_db_query($basedatos,$sSQL12abc);
+$myrow12abc = mysql_fetch_array($result12abc);
+
 $cos=$myrow['precioVenta']*$myrow['cantidad'];
 
 
@@ -506,7 +514,13 @@ $pdf->Cell(0,0,$descripcion,0,0,L);
 $pdf->Ln(4); //salto de linea
 $pdf->SetX('12');
 
-if($myrow12a['medico']=='si' and $myrow12a['descripcion']){
+if($myrow12ab['nombreCompleto']!=''){
+$pdf->SetX('12');
+$pdf->Cell(0,0,'Dr(a) '.$myrow12ab['nombreCompleto'],0,0,L);
+$pdf->Ln(4); //salto de linea
+$pdf->SetX('12');
+$pdf->Cell(0,0,'Especialidad:  '.$myrow12abc['descripcion'],0,0,L);
+}elseif($myrow12a['medico']=='si' and $myrow12a['descripcion']){
 $pdf->Cell(0,0,'Dr(a): '.$myrow12a['descripcion'],0,0,L);
 
 }else{
