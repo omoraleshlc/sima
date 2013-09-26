@@ -213,7 +213,7 @@ while($myrow = mysql_fetch_array($result)){
 	   
 	   <?php if($_POST['tipoCliente']=='subcliente'){ ?>
 	   <td ><div align="center" >
-         <div align="center"><a href="#" onMouseOver="Tip('&lt;div class=&quot;estilo25&quot;&gt;<?php echo 'Editar al cliente: '.$myrow['nomCliente'];?>&lt;/div&gt;')" onMouseOut="UnTip()" onClick="ventanaSecundaria2('../ventanas/seguroLimites.php?keyClientes=<?php echo $myrow['keyClientes']; ?>
+         <div align="center"><a href="#" onMouseOver="Tip('&lt;div class=&quot;estilo25&quot;&gt;<?php echo 'Editar al cliente: '.$myrow['nomCliente'];?>&lt;/div&gt;')" onMouseOut="UnTip()" onClick="ventanaSecundaria2('../ventanas/segurosLimites.php?keyClientes=<?php echo $myrow['keyClientes']; ?>
 		&amp;nCuenta=<?php echo $myrow['nCuenta']; ?>&amp;almacen=<?php echo $bali; ?>&amp;seguro=<?php echo $_POST['seguro']; ?>&amp;numCliente=<?php echo $myrow['numCliente'];?>')"> <img src="../imagenes/btns/editexpediente.png" alt="EDITAR CLIENTE <?php echo $myrow['nomCliente'];?>" width="22" height="22" border="0" /> </a> </div>
        </div></td>
 	   <?php } ?>

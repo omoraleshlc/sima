@@ -161,7 +161,7 @@ cleartimeout(timer)
 </script>
 
 
-
+http://localhost/sima/INGRESOS%20HLC/clientes.php?main=INGRESOS&warehouse=CXC&datawarehouse=#
 
 
 

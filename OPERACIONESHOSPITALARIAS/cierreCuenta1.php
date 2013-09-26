@@ -171,7 +171,7 @@ $rCombo=mysql_db_query($basedatos,$aCombo); ?>
       <th width="235" >Seguro</th>
       <th width="97"  align="center">Cambia Status</th>
       <th width="68" align="center">Coaseguro</th>
-      <th width="68" align="center">Pendientes</th>
+
       <th width="68" align="center">---</th>
     </tr>
     <?php	
@@ -367,12 +367,7 @@ onmouseout="hideddrivetip()" onClick="javascript:ventanaSecundaria2('../ventanas
     
     
     
-     <td align="center" > 
-        
-          <?php if($myrow31cdd['usuario']!=''){?>
-        <a href="#" onClick="javascript:ventanaSecundaria2('../ventanas/articulosPendientes.php?folioVenta=<?php echo $myrow['folioVenta'];?>')">Ver</a>
-          <?php }?>        
-      </td>
+ 
     
         
       <td align="center" >
