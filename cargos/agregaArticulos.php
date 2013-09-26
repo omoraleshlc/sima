@@ -8,7 +8,6 @@
 
 
 //************CASO 1 **********************
-
 $sSQL1s= "Select * From clientesInternos WHERE keyClientesInternos='".$_GET['keyClientesInternos']."'";
 $result1s=mysql_db_query($basedatos,$sSQL1s);
 $myrow1s = mysql_fetch_array($result1s);
@@ -96,16 +95,12 @@ $myrow455f = mysql_fetch_array($result455f);
 
 
 if($myrow455f['requiereMatricula']=='si'){
-$sSQL7cd= "Select * from ALUMNOSINSCRITOS where MATRICULA='".$myrow1s['credencial']."'  and
-(fInicio!='' and fFin!=''    )
-
-and
- (   '".$fecha1."'>=fInicio and '".$fecha1."'<=fFin)";
+$sSQL7cd= "Select * from alumnos where matricula='".$myrow1s['credencial']."'  ";
 $result7cd=mysql_db_query($basedatos,$sSQL7cd);
 $myrow7cd = mysql_fetch_array($result7cd);
 
 
-if(!$myrow7cd['MATRICULA']){  ?>
+if(!$myrow7cd['matricula']){  ?>
  <script>
 window.alert("IMPOSIBLE CONTINUAR! ALUMNO NO ACTIVO! ");
 window.close();

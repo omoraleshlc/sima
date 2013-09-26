@@ -38,13 +38,12 @@ $conexionManual->conecta();
 	//$sql = "SELECT * FROM employees WHERE $where ORDER BY $order_by, name LIMIT $page_size";
 	if($nombres){
 $sql="SELECT * FROM 
-ALUMNOSINSCRITOS 
+alumnos 
 where 
-(NOMBRE like '%$nombres'
+
+nombre like '%$nombres%'
 OR
-APELLIDOS like '%$nombres%')
-OR
-MATRICULA='".$nombres."' 
+matricula='".$nombres."' 
 
 order by
 NOMBRE asc
@@ -62,8 +61,8 @@ limit 0,100
             
             
             
-		$emp_no = $row["MATRICULA"];
-		$name = $row["NOMBRE"].'  '.$row['APELLIDOS']; 
+		$emp_no = $row["matricula"];
+		$name = $row["nombre"]; 
 		$observaciones=$row['observacionesSexo'];
 		
 		if($row['fechaNacimiento']){

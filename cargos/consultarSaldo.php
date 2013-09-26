@@ -9,7 +9,7 @@ $sSQL7na1= "Select numMatricula from pacientes where entidad='".$entidad."'  and
 $result7na1=mysql_db_query($basedatos,$sSQL7na1);
 $myrow7na1 = mysql_fetch_array($result7na1);
 
-$sSQL7na= "Select * from ALUMNOSINSCRITOS where entidad='".$entidad."'  and MATRICULA='".$myrow7na1['numMatricula']."'  ";
+$sSQL7na= "Select * from alumnos where matricula='".$myrow7na1['numMatricula']."'  ";
 $result7na=mysql_db_query($basedatos,$sSQL7na);
 $myrow7na = mysql_fetch_array($result7na);
 ?>
@@ -129,6 +129,10 @@ else
 $estilos= new muestraEstilos();
 $estilos->styles();
 
+$fechaInicio=date("Y").'-08-16';
+$fechaFinal=date("Y");
+$fechaFinal+=1;
+$fechaFinal.='-08-16';
 
 ?>
 	<script src="/sima/js/scripts/autocomplete.js" type="text/javascript"></script>
@@ -136,10 +140,16 @@ $estilos->styles();
 </head>
 
 <body>
-<h1 align="center" class="titulos">Consultar Saldos <?php echo $leyenda; ?>
+<h1 align="center" class="titulos">Consultar Saldos Estudiantes<?php echo $leyenda; ?>
 </h1>
     
-    
+    <h2 align="center">
+<?php         
+$sSQL7na= "Select count(*) as totalAlumnos from alumnos";
+$result7na=mysql_db_query($basedatos,$sSQL7na);
+$myrow7na = mysql_fetch_array($result7na);
+echo 'Alumnos con derecho a seguro, TOTAL: '.$myrow7na['totalAlumnos'];
+    ?></h2>
     
     
 <form name="form1"  method="post" >
@@ -213,8 +223,8 @@ $estilos->styles();
 <?php if($_POST['numeroEx'] and $_POST['search'] and $_POST['seguro']){ ?>
 
     <p align="center"><?php echo $alumno;?></p>
-    <p align="center">Alumno Inscrito, cursando: <?php echo $myrow7na['CARRERA'];?></p>
-    <p align="center">Movimientos periodo: <?php echo cambia_a_normal($myrow7n['fechaInicial']).' al '.cambia_a_normal($myrow7n['fechaFinal']);?> </p>
+    <p align="center">Alumno Inscrito, cursando: <?php echo $myrow7na['escuela'];?></p>
+    <p align="center">Movimientos periodo: <?php echo cambia_a_normal($fechaInicio).' al '.cambia_a_normal($fechaFinal);?> </p>
     <table width="500" border="0" align="center">
       <tr>
         <th width="74"  scope="col"><div align="left" >FolioVenta</div></th>
@@ -225,13 +235,12 @@ $estilos->styles();
         <?php	
 
 
-$sSQL= "Select * from clientesInternos where entidad='".$entidad."' and numeroE='".$_POST['numeroEx']."' and seguro='".$_POST['seguro']."'
+$sSQL= "Select * from clientesInternos where entidad='".$entidad."' and credencial='".$_POST['numeroEx']."' and seguro='".$_POST['seguro']."'
 
-and (fecha >='".$myrow7n['fechaInicial']."' and fecha<='".$myrow7n['fechaFinal']."' ) 
+and (fecha >='".$fechaInicio."' and fecha<='".$fechaFinal."' ) 
+
 and
-folioVenta!=''
-and
-statusCaja='pagado'";
+statusCuenta='cerrada'";
 $result=mysql_db_query($basedatos,$sSQL);
 while($myrow = mysql_fetch_array($result)){
 
@@ -369,7 +378,7 @@ $myrow7abc = mysql_fetch_array($result7abc);
 			
 			// Replace .html to .php to get dynamic results.
 			// .html is just a sample for you
-			return "/sima/cargos/pacientesx.php?entidad=<?php echo $entidad;?>&q=" + this.value;
+			return "/sima/cargos/estudiantesx.php?entidad=<?php echo $entidad;?>&q=" + this.value;
 			// return "completeEmpName.php?q=" + this.value;
 		});	
 	</script>

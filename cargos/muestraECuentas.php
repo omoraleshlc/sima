@@ -1,16 +1,15 @@
 <?php 
 
 if($myrow1s['credencial']>0){
-$sSQL7n= "Select * from periodoAlumnos where entidad='".$entidad."'  and  '".$fecha1."' between fechaInicial and fechaFinal ";
-$result7n=mysql_db_query($basedatos,$sSQL7n);
-$myrow7n = mysql_fetch_array($result7n);
 
-
-
-
-$sSQL7na= "Select * from ALUMNOSINSCRITOS where MATRICULA='".$myrow1s['credencial']."'";
+$sSQL7na= "Select count(*) as totalAlumnos from alumnos";
 $result7na=mysql_db_query($basedatos,$sSQL7na);
 $myrow7na = mysql_fetch_array($result7na);
+
+
+$sSQL7na1= "Select * from alumnos where MATRICULA='".$myrow1s['credencial']."'";
+$result7na1=mysql_db_query($basedatos,$sSQL7na1);
+$myrow7na1 = mysql_fetch_array($result7na1);
 ?>
 
 <?php //if($seguro==$myrow7na[''] ?>
@@ -23,19 +22,19 @@ $estilo->styles();
 
 <p align="center">&nbsp;</p>
 <form name="form1" method="post" action="">
-    <p align="center">Ultima Actualizacion: <?php echo cambia_a_normal($myrow7na['fecha']).' a las: '.$myrow7na['hora'];?></p>
-    <p align="center"><?php echo $alumno;?></p>
-    <p align="center">Alumno Inscrito, cursando: <?php echo $myrow7na['nombreCarrera'];?></p>
+    <p align="center">Total de Alumnos con seguro Total: <?php echo $myrow7na['totalAlumnos'];?></p>
+    <p align="center"><?php echo $myrow7na1['nombre'];?></p>
+    <p align="center">Alumno Inscrito, cursando: <?php echo $myrow7na1['escuela'];?></p>
 
             
-            
+            <!--
             <div align="center">
                 
-              <img src="<?php echo "../im/".$myrow7na['MATRICULA'].'.jpg';?>" alt="Alumno" width="100" height="100">  
+              <img src="<?php echo "../im/".$myrow7na1['MATRICULA'].'.jpg';?>" alt="Alumno" width="100" height="100">  
                 
             </div>
             <br>
-            
+            -->
             
     <table width="400" class="table table-striped">
       <tr>
@@ -46,12 +45,15 @@ $estilo->styles();
       </tr>
       <tr>
         <?php	
-
+$fechaInicio=date("Y").'-08-16';
+$fechaFinal=date("Y");
+$fechaFinal+=1;
+$fechaFinal.='-08-16';
 
 
 $sSQL= "Select * from clientesInternos where entidad='".$entidad."' and credencial='".$myrow1s['credencial']."' 
 and seguro='".$seguro."' 
-and (fecha >='".$myrow7cd['fInicio']."' and fecha<='".$myrow7cd['fFin']."' ) 
+and (fecha >='".$fechaInicio."' and fecha<='".$fechaFinal."' ) 
 and
 statusCuenta='cerrada' ";
 $result=mysql_db_query($basedatos,$sSQL);
