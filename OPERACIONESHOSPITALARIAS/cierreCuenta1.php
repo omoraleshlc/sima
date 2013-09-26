@@ -301,13 +301,13 @@ onclick="javascript:ventanaSecundaria11('../cargos/despliegaCargos.php?numeroE=<
         <?php if($_POST['status']=='Abiertas'){ ?>
         <a href="#solicitar<?php echo $guia;?>" name="solicitar<?php echo $guia;?>" onClick="javascript:ventanaSecundaria2('../cargos/actualizarDatosPx.php?numeroE=<?php echo $myrow['numeroE']; ?>&nCuenta=<?php echo $myrow['nCuenta']; ?>&almacen=<?php echo $ALMACEN; ?>&seguro=<?php echo $myrow['seguro']; ?>&keyClientesInternos=<?php echo $myrow['keyClientesInternos']; ?>&tipoPaciente=<?php echo "interno"; ?>')"> <?php echo $myrow['paciente'];
 	  if($myrow['status']=='ontransfer'){
-	  echo '   [Se solicit� la transferencia de �ste paciente]';
+	  echo '   [Se solicito la transferencia de este paciente]';
 	  }
 	  ?> </a>
         <?php }else{ ?>
         <?php echo $myrow['paciente'];
 	  if($myrow['status']=='ontransfer'){
-	  echo '   [Se solicito la transferencia de �ste paciente]';
+	  echo '   [Se solicito la transferencia de este paciente]';
 	  }
 	  ?>
         <?php } ?>
@@ -348,8 +348,9 @@ and statusCargo='standby'
 $result31ss=mysql_db_query($basedatos,$sSQL31ss);
 $myrow31ss = mysql_fetch_array($result31ss);
 		  if($myrow31ss['statusCargo']){ ?>
-        <a onMouseOver="ddrivetip('Falta por surtir!','yellow', 300)";
-onmouseout="hideddrivetip()"> Falta Surtir </a>
+        <a  onMouseOver="ddrivetip('Falta por surtir!','yellow', 300)";
+onmouseout="hideddrivetip()" onClick="javascript:ventanaSecundaria2('../ventanas/articulossinSurtir.php?numeroE=<?php echo $myrow['numeroE']; ?>
+		&amp;nCuenta=<?php echo $myrow['nCuenta']; ?>&amp;almacen=<?php echo $ALMACEN; ?>&amp;ali=<?php echo $ALMACEN; ?>&amp;seguro=<?php echo $_POST['seguro']; ?>&amp;nT=<?php echo $myrow['keyClientesInternos']; ?>&amp;tipoPaciente=<?php echo "interno"; ?>&folioVenta=<?php echo $myrow['folioVenta'];?>')"> Falta Surtir </a>
         <?php } else { ?>
         <a href="#" onClick="javascript:ventanaSecundaria111('../cargos/enviarAdm.php?numeroE=<?php echo $myrow['numeroE']; ?>
 		&amp;nCuenta=<?php echo $myrow['nCuenta']; ?>&amp;almacen=<?php echo $ALMACEN; ?>&amp;ali=<?php echo $ALMACEN; ?>&amp;seguro=<?php echo $_POST['seguro']; ?>&amp;nT=<?php echo $myrow['keyClientesInternos']; ?>&amp;tipoPaciente=<?php echo "interno"; ?>&folioVenta=<?php echo $myrow['folioVenta'];?>')">Cambiar Status</a>
