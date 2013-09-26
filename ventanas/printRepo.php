@@ -406,8 +406,9 @@ if($myrow3acd['cantidadSurtir']>0){
 
 $pdf->SetX('15');
 $pdf->Cell(0,0,$myrow['descripcion'].'['.$tv.']',0,0,M);
-
-
+$pdf->Ln(3); //salto de linea
+$pdf->SetX('15');
+$pdf->Cell(0,0,$myrow['keyCAP'],0,0,M);
 
 //$pdf->SetX('140');
 //$pdf->Cell(0,0,$myrow['hora'],0,0,M);

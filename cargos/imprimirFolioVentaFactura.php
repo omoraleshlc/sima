@@ -225,7 +225,8 @@ WHERE
 entidad='".$_GET['entidad']."'
 and
 numSolicitud='".$_GET['numSolicitud']."'
-
+and
+tipoTransaccion=''
 group by folioVenta
 order by folioVenta
 
@@ -301,6 +302,8 @@ and
 folioVenta='".$myrow['folioVenta']."' 
 and
 naturaleza='C'
+and
+tipoTransaccion=''
 ";
 $resultefectivo=mysql_db_query($basedatos,$sSQLefectivo);
 $myrowefectivo = mysql_fetch_array($resultefectivo);
@@ -317,6 +320,8 @@ and
 folioVenta='".$myrow['folioVenta']."' 
 and
 naturaleza='A'
+and
+tipoTransaccion=''
 ";
 $resultefectivod=mysql_db_query($basedatos,$sSQLefectivod);
 $myrowefectivod = mysql_fetch_array($resultefectivod); 
@@ -363,6 +368,8 @@ and
 folioVenta='".$myrow['folioVenta']."' 
 and
 naturaleza='C'
+and
+tipoTransaccion=''
 
 
 ";
@@ -381,7 +388,8 @@ and
 folioVenta='".$myrow['folioVenta']."' 
 and
 naturaleza='A'
-
+and
+tipoTransaccion=''
 ";
 $resultdiE=mysql_db_query($basedatos,$sSQLdiE);
 $myrowdiE = mysql_fetch_array($resultdiE);

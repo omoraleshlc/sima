@@ -51,7 +51,7 @@ $estilo->styles();
 
 $sSQL= "Select * from clientesInternos where entidad='".$entidad."' and credencial='".$myrow1s['credencial']."' 
 and seguro='".$seguro."' 
-and (fecha >='".$myrow7n['fechaInicial']."' and fecha<='".$myrow7n['fechaFinal']."' ) 
+and (fecha >='".$myrow7cd['fInicio']."' and fecha<='".$myrow7cd['fFin']."' ) 
 and
 statusCuenta='cerrada' ";
 $result=mysql_db_query($basedatos,$sSQL);

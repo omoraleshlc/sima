@@ -1,4 +1,4 @@
-<?php require('pdf/fpdf_js.php');
+<?php require('../js/pdf/fpdf_js.php');
 
 
 

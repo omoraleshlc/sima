@@ -456,8 +456,7 @@ $sSQL= "Select
 *
 from facturasAplicadas
 where 
-numFactura='SHC0023559'
-and
+
 entidad='".$entidad."'
 and
 clientePrincipal='".$_GET['seguro']."'
