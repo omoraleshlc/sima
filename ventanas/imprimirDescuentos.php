@@ -1,8 +1,4 @@
-<?php include('/var/www/html/sima/js/pdf/fpdf_js.php');
-
-
-
-
+<?php require('../js/pdf/fpdf_js.php');
 
 
 
@@ -149,13 +145,13 @@ $pdf->AddPage();
 
 
 
-
+//*****************CONEXION  A SIMA***************
 require('/configuracion/baseDatos.php');
 $base=new MYSQL();
 $basedatos=$base->basedatos();
 $conexionManual=new MYSQL();
 $conexionManual->conecta();
-
+//**************************************************
 
 
 function cambia_a_normal($fecha){ 
@@ -283,6 +279,10 @@ and
 gpoProducto=''
 and
 statusDescuento='si'
+and
+fechaCierre!=''
+and
+naturaleza!='-'
 group by folioVenta
 
 order by folioVenta ASC
@@ -327,6 +327,20 @@ $pdf->Cell(0,0,'[ '.$myrow['folioVenta'].' ]',0,0,M);
 
 
 $pdf->SetX('25');
+ $sSQL1se= "SELECT * FROM clientes
+WHERE
+entidad='".$_GET['entidad']."'
+and
+numCliente='".$myrow['clientePrincipal']."' ";
+ 
+
+$result1se=mysql_db_query($basedatos,$sSQL1se);
+$myrow1se = mysql_fetch_array($result1se);
+$pdf->Ln(3); //salto de linea  
+
+$pdf->SetX('25');
+$pdf->Cell(0,0,$myrow1se ['descripcion'],0,0,M);
+$pdf->Ln(3); //salto de linea  
 $pdf->Cell(0,0,$myrow['descripcionArticulo'],0,0,M);
 $pdf->Ln(3); //salto de linea  
 //if($myrow1b1['nombreCompleto']){

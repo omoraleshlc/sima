@@ -268,6 +268,8 @@ and
 almacenIngreso!=''
 and
 ventasDirectas!='si'
+and
+naturaleza!='-'
 
 group by almacenIngreso";
 

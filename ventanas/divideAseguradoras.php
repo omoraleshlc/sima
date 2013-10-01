@@ -1645,16 +1645,19 @@ if($myrow4['importe']>0){?>
         
 
         <th width="20"  scope="col"><div align="left" >
-          <div align="center">Facturado</div>
+          <div align="center">Fac</div>
         </div></th>
         
+            <th width="20"  scope="col"><div align="left" >
+          <div align="center">Desc</div>
+        </div></th>
         
                 <th width="20"  scope="col"><div align="left" >
           <div align="center">Res/Fact</div>
         </div></th>
         
                 <th width="20"  scope="col"><div align="left" >
-          <div align="center">Facturar</div>
+          <div align="center">ApFac</div>
         </div></th>
         
         
@@ -1692,8 +1695,25 @@ while($myrow = mysql_fetch_array($result)){
 $bandera+=1;
 
 
+$sqldescas= "
+SELECT sum(precioVenta*cantidad) as totalDescuentos
+FROM
+cargosCuentaPaciente
+WHERE
+entidad =  '".$entidad."'
+    and
+    folioVenta='".$myrow['folioVenta']."'
+        and
+        gpoProducto=''
+and
+naturaleza='A'
+and
+statusDescuento='si'
 
-
+";
+$resultdescas=mysql_db_query($basedatos,$sqldescas);
+$myrowdescas= mysql_fetch_array($resultdescas);
+$descuentos=$myrowdescas['totalDescuentos'];
 
 $sql5c= "
 SELECT sum(cantidadAseguradora*cantidad) as p,sum(ivaAseguradora*cantidad) as i
@@ -1928,12 +1948,16 @@ echo $rNombre23['paciente'];
 	      </div>
         </td>
 
-        
+                <td >
+		  <div align="center">
+                    <?php echo '$'.number_format($descuentos,2);?>
+	      </div>
+        </td>
         
         
                 <td >
 		  <div align="center">
-                    <?php echo '$'.number_format(($importe1+$iva1)-$facturado,2);?>
+                    <?php echo '$'.number_format((($importe1+$iva1)-$descuentos)-$facturado,2);?>
 	      </div>
         </td>
         
@@ -1943,7 +1967,7 @@ echo $rNombre23['paciente'];
         <td >
 	<div align="center">
 
-        <input name="facturar[]" type="text" size="10"  value="<?php echo number_format(($importe1+$iva1)-$facturado,2);?>"  />
+        <input name="facturar[]" type="text" size="10"  value="<?php echo number_format((($importe1+$iva1)-$descuentos)-$facturado,2);?>"  />
    
 	</div>
         </td>

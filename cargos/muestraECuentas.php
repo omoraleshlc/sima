@@ -43,12 +43,13 @@ $estilo->styles();
         <td ><div align="left" >Fecha</div></td>
         <td ><div align="left" >Importe</div></td>
       </tr>
-      <tr>
-        <?php	
+
+<tr>
+<?php	
 $fechaInicio=date("Y").'-08-16';
 $fechaFinal=date("Y");
 $fechaFinal+=1;
-$fechaFinal.='-08-16';
+$fechaFinal.='-05-25';
 
 
 $sSQL= "Select * from clientesInternos where entidad='".$entidad."' and credencial='".$myrow1s['credencial']."' 

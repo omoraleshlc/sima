@@ -177,12 +177,14 @@ $result3=mysql_db_query($basedatos,$sSQL3);
 $myrow3 = mysql_fetch_array($result3);
 $ass=$myrow3['seguro'];
 
+
+/*
 if($_GET['tipoPago']=='Cuentas por Cobrar'){
 $seguro=$myrow3['seguro'];
 }else if($_GET['modoPago']=='devolucionAseguradora'){
 $seguro=$myrow3['seguro'];    
-}
-
+}*/
+$seguro=$myrow3['seguro'];
 
 
 

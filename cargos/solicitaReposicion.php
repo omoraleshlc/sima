@@ -30,8 +30,8 @@ function ventanaSecundaria10 (URL){
 
 <?php
 /*
-$_GET['usuario']='MIRTA';
-$usuario='MIRTA';*/
+$_GET['usuario']='doris';
+$usuario='doris';*/
 if($_POST['solicitar'] ){ 
 
 $keyPA=$_POST['keyPA'];

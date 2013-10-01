@@ -99,10 +99,13 @@ $sSQL7cd= "Select * from alumnos where matricula='".$myrow1s['credencial']."'  "
 $result7cd=mysql_db_query($basedatos,$sSQL7cd);
 $myrow7cd = mysql_fetch_array($result7cd);
 
+$sSQL7n= "Select * from periodoAlumnos where entidad='".$entidad."'  and  '".$fecha1."' between fechaInicial and fechaFinal ";
+$result7n=mysql_db_query($basedatos,$sSQL7n);
+$myrow7n = mysql_fetch_array($result7n);
 
-if(!$myrow7cd['matricula']){  ?>
+if(!$myrow7cd['matricula'] ){  ?>
  <script>
-window.alert("IMPOSIBLE CONTINUAR! ALUMNO NO ACTIVO! ");
+window.alert("IMPOSIBLE CONTINUAR! ALUMNO NO ACTIVO O SEGURO VENCIDO! ");
 window.close();
 </script>
  <?php }else{

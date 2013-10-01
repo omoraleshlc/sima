@@ -396,19 +396,27 @@ $agrega = "INSERT INTO cargosCuentaPaciente (
 numeroE,nCuenta,status,usuario,fecha1,dia,cantidad,tipoTransaccion,codProcedimiento,hora1,
 naturaleza,ejercicio,statusDeposito,almacen,usuarioTraslado,seguro,
 statusTraslado,tipoCliente,tipoPaciente,cantidadParticular,cantidadAseguradora,numCorte,entidad,tipoCobro,statusAuditoria,
-tipoPago,statusCargo,porcentajeVariable,cargosHospitalarios,almacenDestino,descripcion,almacenSolicitante,statusCaja,numRecibo,keyClientesInternos,folioVenta,codigoCaja,
+tipoPago,statusCargo,porcentajeVariable,cargosHospitalarios,almacenDestino,descripcion,almacenSolicitante,
+statusCaja,numRecibo,keyClientesInternos,folioVenta,codigoCaja,
 ultimosDigitos,
-telefono,bancoTC,bancoTransferencia,numeroTransferencia,numeroCheque,bancoCheque,precioVenta,random,codigoAutorizacion
+telefono,bancoTC,bancoTransferencia,numeroTransferencia,numeroCheque,bancoCheque,precioVenta,random,codigoAutorizacion,
+clientePrincipal
 
 ) 
 values 
 ('".$myrow3['numeroE']."','".$nCuenta."','transaccion',
 '".$usuario."','".$fecha1."','".$dia."','1','".$myrow317['codigoTT']."','operacionCaja',
 '".$hora1."','".$naturaleza."','".$ID_EJERCICIOM."','','".$almacen."','".$usuario."',
-'".$_GET['seguro']."','trasladado','particular','".$myrow3['tipoPaciente']."',
-'".$cantidadParticular."','".$cantidadAseguradora."','".$myrowC['numCorte']."','".$entidad."','".$_GET['tipoPago']."','standby'
-,'".$_GET['tipoPago']."','cargado','".$_GET['porcentaje']."','".$_GET['cargosHospitalarios']."','".$almacen."','".$_GET['descripcion']."','".$almacen."','pagado','".$RECIBO."','".$myrow3['keyClientesInternos']."','".$myrow3['folioVenta']."','".$myrowC['keyCatC']."',
-'".$_GET['ultimosDigitos']."','".$_GET['telefono']."','".$_GET['bancoTC']."','".$_GET['bancoTransferencia']."','".$_GET['numeroTransferencia']."','".$_GET['numeroCheque']."','".$_POST['bancoCheque']."','".$_GET['cantidadRecibida']."','".$_GET['random']."','".$_GET['codigoAutTC']."')";
+'".$seguro."','trasladado','particular','".$myrow3['tipoPaciente']."',
+'".$cantidadParticular."','".$cantidadAseguradora."','".$myrowC['numCorte']."',
+    '".$entidad."','".$_GET['tipoPago']."','standby'
+,'".$_GET['tipoPago']."','cargado','".$_GET['porcentaje']."','".$_GET['cargosHospitalarios']."',
+    '".$almacen."','".$_GET['descripcion']."','".$almacen."','pagado','".$RECIBO."','".$myrow3['keyClientesInternos']."',
+        '".$myrow3['folioVenta']."','".$myrowC['keyCatC']."',
+'".$_GET['ultimosDigitos']."','".$_GET['telefono']."','".$_GET['bancoTC']."',
+    '".$_GET['bancoTransferencia']."','".$_GET['numeroTransferencia']."',
+        '".$_GET['numeroCheque']."','".$_POST['bancoCheque']."','".$_GET['cantidadRecibida']."',
+            '".$_GET['random']."','".$_GET['codigoAutTC']."','".$myrow455['clientePrincipal']."')";
 mysql_db_query($basedatos,$agrega);
 echo mysql_error();
 
@@ -559,14 +567,21 @@ $my['naturaleza']='-';
 $agrega = "INSERT INTO cargosCuentaPaciente (
 numeroE,nCuenta,status,usuario,fecha1,dia,cantidad,tipoTransaccion,codProcedimiento,hora1,
 naturaleza,ejercicio,statusDeposito,almacen,usuarioTraslado,seguro,
-statusTraslado,tipoCliente,tipoPaciente,cantidadParticular,cantidadAseguradora,numCorte,entidad,tipoCobro,statusAuditoria,tipoPago,almacenDestino,keyClientesInternos,statusFactura,statusCargo,statusImpresion,numRecibo,folioVenta,codigoCaja,statusCaja,telefono,clientePrincipal,precioVenta,bancoCheque,numeroCheque,random,codigoAutorizacion,ultimosDigitos,bancoTCdescripcion,descripcionArticulo) 
+statusTraslado,tipoCliente,tipoPaciente,cantidadParticular,cantidadAseguradora,numCorte,entidad,
+tipoCobro,statusAuditoria,tipoPago,almacenDestino,keyClientesInternos,statusFactura,statusCargo,statusImpresion,
+numRecibo,folioVenta,codigoCaja,statusCaja,telefono,clientePrincipal,precioVenta,bancoCheque,numeroCheque,random,
+codigoAutorizacion,ultimosDigitos,bancoTCdescripcion,descripcionArticulo) 
 values 
 ('".$numeroE."','".$nCuenta."','transaccion',
 '".$usuario."','".$fecha1."','".$dia."','1','".$my['codigoTT']."','operacionCaja',
 '".$hora1."','".$my['naturaleza']."','".$ID_EJERCICIOM."','pagado','".$ALMACEN."','".$usuario."',
 '".$seguro."','".$statusTraslado."','".$_GET['tipoCliente']."','".$myrow3['tipoPaciente']."',
 '".$cantidadParticular."','".$cantidadAseguradora."','".$numCorte."','".$entidad."','".$_GET['tipoPago']."','standby'
-,'".$_GET['tipoPago']."','".$ALMACEN."','".$numeroCuenta."','standby','cargado','standby','".$RECIBO."','".$myrow3['folioVenta']."','".$myrowC['keyCatC']."','pagado','".$_GET['telefono']."','".$myrow455['clientePrincipal']."','".$_GET['cantidadRecibida']."','".$_GET['bancoCheque']."','".$_GET['numeroCheque']."','".$_GET['random']."','".$_GET['codigoAutTC']."','".$_GET['ultimosDigitos']."','".$_GET['bancoTC']."','".$describe."','".$describe."')";
+,'".$_GET['tipoPago']."','".$ALMACEN."','".$numeroCuenta."','standby','cargado','standby','".$RECIBO."',
+    '".$myrow3['folioVenta']."','".$myrowC['keyCatC']."','pagado','".$_GET['telefono']."',
+        '".$myrow455['clientePrincipal']."','".$_GET['cantidadRecibida']."','".$_GET['bancoCheque']."',
+            '".$_GET['numeroCheque']."','".$_GET['random']."','".$_GET['codigoAutTC']."','".$_GET['ultimosDigitos']."',
+                '".$_GET['bancoTC']."','".$describe."','".$describe."')";
 mysql_db_query($basedatos,$agrega);
 echo mysql_error();
 
@@ -597,14 +612,22 @@ $my['naturaleza']='-';
 $agrega = "INSERT INTO cargosCuentaPaciente (
 numeroE,nCuenta,status,usuario,fecha1,dia,cantidad,tipoTransaccion,codProcedimiento,hora1,
 naturaleza,ejercicio,statusDeposito,almacen,usuarioTraslado,seguro,
-statusTraslado,tipoCliente,tipoPaciente,cantidadParticular,cantidadAseguradora,numCorte,entidad,tipoCobro,statusAuditoria,tipoPago,almacenDestino,keyClientesInternos,statusFactura,statusCargo,statusImpresion,numRecibo,folioVenta,codigoCaja,statusCaja,telefono,clientePrincipal,precioVenta,bancoCheque,numeroCheque,random,codigoAutorizacion,ultimosDigitos,bancoTC) 
+statusTraslado,tipoCliente,tipoPaciente,cantidadParticular,cantidadAseguradora,numCorte,entidad,
+tipoCobro,statusAuditoria,tipoPago,almacenDestino,keyClientesInternos,statusFactura,statusCargo,
+statusImpresion,numRecibo,folioVenta,codigoCaja,statusCaja,telefono,clientePrincipal,precioVenta,
+bancoCheque,numeroCheque,random,codigoAutorizacion,ultimosDigitos,bancoTC) 
 values 
 ('".$numeroE."','".$nCuenta."','transaccion',
 '".$usuario."','".$fecha1."','".$dia."','1','".$my['codigoTT']."','operacionCaja',
 '".$hora1."','".$my['naturaleza']."','".$ID_EJERCICIOM."','pagado','".$ALMACEN."','".$usuario."',
 '".$seguro."','".$statusTraslado."','".$_GET['tipoCliente']."','".$myrow3['tipoPaciente']."',
-'".$cantidadParticular."','".$cantidadAseguradora."','".$numCorte."','".$entidad."','".$_GET['tipoPago']."','standby'
-,'".$_GET['tipoPago']."','".$ALMACEN."','".$numeroCuenta."','standby','cargado','standby','".$RECIBO."','".$myrow3['folioVenta']."','".$myrowC['keyCatC']."','pagado','".$_GET['telefono']."','".$myrow455['clientePrincipal']."','".$_GET['cantidadRecibida']."','".$_GET['bancoCheque']."','".$_GET['numeroCheque']."','".$_GET['random']."','".$_GET['codigoAutTC']."','".$_GET['ultimosDigitos']."','".$_GET['bancoTC']."')";
+'".$cantidadParticular."','".$cantidadAseguradora."','".$numCorte."','".$entidad."',
+    '".$_GET['tipoPago']."','standby'
+,'".$_GET['tipoPago']."','".$ALMACEN."','".$numeroCuenta."','standby','cargado','standby','".$RECIBO."',
+    '".$myrow3['folioVenta']."','".$myrowC['keyCatC']."','pagado','".$_GET['telefono']."',
+        '".$myrow455['clientePrincipal']."','".$_GET['cantidadRecibida']."','".$_GET['bancoCheque']."',
+            '".$_GET['numeroCheque']."','".$_GET['random']."','".$_GET['codigoAutTC']."',
+                '".$_GET['ultimosDigitos']."','".$_GET['bancoTC']."')";
 mysql_db_query($basedatos,$agrega);
 echo mysql_error();
 }
@@ -616,14 +639,21 @@ echo mysql_error();
 $agrega = "INSERT INTO cargosCuentaPaciente (
 numeroE,nCuenta,status,usuario,fecha1,dia,cantidad,tipoTransaccion,codProcedimiento,hora1,
 naturaleza,ejercicio,statusDeposito,almacen,usuarioTraslado,seguro,
-statusTraslado,tipoCliente,tipoPaciente,cantidadParticular,cantidadAseguradora,numCorte,entidad,tipoCobro,statusAuditoria,tipoPago,almacenDestino,keyClientesInternos,statusFactura,statusCargo,statusImpresion,numRecibo,folioVenta,codigoCaja,statusCaja,telefono,clientePrincipal,precioVenta,bancoCheque,numeroCheque,random,codigoAutorizacion,ultimosDigitos,bancoTC) 
+statusTraslado,tipoCliente,tipoPaciente,cantidadParticular,cantidadAseguradora,
+numCorte,entidad,tipoCobro,statusAuditoria,tipoPago,almacenDestino,keyClientesInternos,
+statusFactura,statusCargo,statusImpresion,numRecibo,folioVenta,codigoCaja,statusCaja,
+telefono,clientePrincipal,precioVenta,bancoCheque,numeroCheque,random,codigoAutorizacion,
+ultimosDigitos,bancoTC) 
 values 
 ('".$numeroE."','".$nCuenta."','transaccion',
 '".$usuario."','".$fecha1."','".$dia."','1','".$_GET['tt']."','operacionCaja',
 '".$hora1."','".$naturaleza."','".$ID_EJERCICIOM."','pagado','".$ALMACEN."','".$usuario."',
 '".$seguro."','".$statusTraslado."','".$_GET['tipoCliente']."','".$myrow3['tipoPaciente']."',
 '".$cantidadParticular."','".$cantidadAseguradora."','".$numCorte."','".$entidad."','".$_GET['tipoPago']."','standby'
-,'".$_GET['tipoPago']."','".$ALMACEN."','".$numeroCuenta."','standby','cargado','standby','".$RECIBO."','".$myrow3['folioVenta']."','".$myrowC['keyCatC']."','pagado','".$_GET['telefono']."','".$myrow455['clientePrincipal']."','".$_GET['cantidadRecibida']."','".$_GET['bancoCheque']."','".$_GET['numeroCheque']."','".$_GET['random']."','".$_GET['codigoAutTC']."','".$_GET['ultimosDigitos']."','".$_GET['bancoTC']."')";
+,'".$_GET['tipoPago']."','".$ALMACEN."','".$numeroCuenta."','standby','cargado','standby','".$RECIBO."',
+    '".$myrow3['folioVenta']."','".$myrowC['keyCatC']."','pagado','".$_GET['telefono']."',
+        '".$myrow455['clientePrincipal']."','".$_GET['cantidadRecibida']."','".$_GET['bancoCheque']."',
+            '".$_GET['numeroCheque']."','".$_GET['random']."','".$_GET['codigoAutTC']."','".$_GET['ultimosDigitos']."','".$_GET['bancoTC']."')";
 mysql_db_query($basedatos,$agrega);
 echo mysql_error();
 }
@@ -922,7 +952,7 @@ $myrow455 = mysql_fetch_array($result455);
 <select name="tipoPago" class="style20" id="tipoPago" onChange="javascript:form.submit();" <?php if($_GET['tipoCliente']!=NULL) //echo 'disabled=""';?>>
              
              
-             <option value="">Tipo de devoluci�n</option>
+             <option value="">Tipo de devolucion</option>
               
                 <option
 				 selected="selected"

@@ -311,7 +311,8 @@ and
  fecha1>='".$_POST['fechaInicial']."' and fecha1<='".$_POST['fechaFinal']."'
  and
  gpoProducto=''
-
+and
+naturaleza!='-'
  order by fecha1 ASC
 
    ";
@@ -346,7 +347,7 @@ if($myrow['tipoTransaccion']=='taseg' or $myrow['tipoTransaccion']=='tnom' or $m
 }
 
 
- if($myrow['tipoTransaccion']=='devAseg' or $myrow['tipoTransaccion']=='devxaseg' or $myrow['tipoTransaccion']=='abaseg' or $myrow['tipoTransaccion']=='devxnom' ){
+ if($myrow['tipoTransaccion']=='DESCAS' or $myrow['tipoTransaccion']=='devAseg' or $myrow['tipoTransaccion']=='devxaseg' or $myrow['tipoTransaccion']=='abaseg' or $myrow['tipoTransaccion']=='devxnom' ){
       $abonos[0]+=$myrow['precioVenta']*$myrow['cantidad'];
  }
 
@@ -405,7 +406,7 @@ $saldo=($cargos[0]+$c)-$devoluciones[0]-($abonos[0]+$nC[0]);
 
 
 	   <?php 
-            if( $myrow['tipoTransaccion']=='abaseg' or $myrow['tipoTransaccion']=='devxaseg'  or $myrow['tipoTransaccion']=='devAseg' or $myrow['tipoTransaccion']=='devxnom'){
+            if( $myrow['tipoTransaccion']=='DESCAS' or $myrow['tipoTransaccion']=='abaseg' or $myrow['tipoTransaccion']=='devxaseg'  or $myrow['tipoTransaccion']=='devAseg' or $myrow['tipoTransaccion']=='devxnom'){
            echo '<div align="center" >';
                 echo '$'.number_format($myrow['precioVenta']*$myrow['cantidad'],2);
           echo '</div>';
