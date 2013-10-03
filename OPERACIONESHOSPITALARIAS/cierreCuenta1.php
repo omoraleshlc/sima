@@ -342,7 +342,7 @@ and
 folioVenta='".$myrow['folioVenta']."' 
 and
 gpoProducto!=''
-and statusCargo='standby'
+and statusCargo!='cargado'
 
 ";
 $result31ss=mysql_db_query($basedatos,$sSQL31ss);

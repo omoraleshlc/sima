@@ -144,7 +144,11 @@ $estilo->styles();
    <table width="666" class="table table-striped" >
      <tr >
        <th width="72"  scope="col"><div align="left" >
-         <div align="center">Codigo </div>
+         <div align="center"># </div>
+       </div></th>         
+         
+       <th width="72"  scope="col"><div align="left" >
+         <div align="center">Auxiliar </div>
        </div></th>
        <th width="349"  scope="col"><div align="left" >
          <div align="center">Nombre del Cliente </div>
@@ -187,10 +191,15 @@ clientePrincipal=''
  
 $result=mysql_db_query($basedatos,$sSQL); 
 while($myrow = mysql_fetch_array($result)){
+    $a+=1;
 ?>
      </div>
      <tr  > 
-       <td height="20" ><div align="left">       <?php echo $myrow['numCliente'];?></div>
+         
+         <td height="20" ><div align="left">       <?php echo $a;?></div>
+         <label></label>
+       <div align="left"></div></td>
+       <td height="20" ><div align="left">       <?php echo $myrow['ID_AUXILIAR'];?></div>
          <label></label>
        <div align="left"></div></td>
        <td ><div align="left">
