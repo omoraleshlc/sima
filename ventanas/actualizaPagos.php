@@ -656,15 +656,15 @@ keyCAP='".$myrow1['keyCAP']."'
 $q = "UPDATE cargosCuentaPaciente set 
 descripcionArticulo='".$descripcionArticulo."',
 gpoProducto='".$gpoProducto."',
-precioVenta='".$priceLevel."',
+precioVenta='".$cantidadParticular."',
 seguro='".$seguro."',
-iva='".$iva->iva($entidad,$cantidad,$codigo,$priceLevel,$basedatos)."',
+iva='".$ivaParticulart."',
 tipoCliente='particular',
-cantidadParticular='".$priceLevel."',
+cantidadParticular='".$cantidadParticular."',
 cantidadAseguradora=NULL,
 ivaAseguradora=NULL,
 clientePrincipal=NULL,
-ivaParticular='".$iva->iva($entidad,$cantidad,$codigo,$priceLevel,$basedatos)."'
+ivaParticular='".$ivaParticulart."'
 WHERE 
 keyCAP='".$myrow1['keyCAP']."'
 
