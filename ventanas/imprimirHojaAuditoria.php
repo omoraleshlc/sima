@@ -1286,6 +1286,15 @@ $pdf->Cell(0,0,'$'.number_format($devolucionDescuento[0],2),0,0,M);
 $pdf->Ln(4); //salto de linea
 
 
+
+$pdf->SetX('30');
+$pdf->Cell(0,0,"Dev Descuentos Aseguradoras",0,0,M);
+$pdf->SetX('170');
+$pdf->Cell(0,0,'$'.number_format($devolucionDescuentoAseguradoras[0],2),0,0,M);
+$pdf->Ln(4); //salto de linea
+
+
+
 $pdf->SetX('30');
 $pdf->Cell(0,0,"Dev Efectivo",0,0,M);
 $pdf->SetX('170');
@@ -1717,7 +1726,8 @@ $taas+
 $tOtros+
 $aInternosT+
 $devtotros[0]+//dev traslado a otros
-$nCreditoH
+$nCreditoH+
+$devolucionDescuentoAseguradoras[0]
 ;
 
 

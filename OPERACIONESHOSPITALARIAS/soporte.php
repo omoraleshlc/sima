@@ -1,237 +1,73 @@
-<?php 
-require("menuOperaciones.php");
-//require("/configuracion/ventanasEmergentes.php");
-//require('/configuracion/funciones.php');
+<?php require("/configuracion/ventanasEmergentes.php");
+require('/configuracion/funciones.php');
 
 //$mostrarmenu=new menus();
 //$mostrarmenu->menuTemplate($_GET['warehouse'],$_GET['datawarehouse'],$rutasalir,$rutapasswd,$usuario,$entidad,$rutamenuprincipal,'principal',$rutaimagen,$basedatos);
-$estilos=new muestraEstilos();
+$estilos=new muestraEstilosV2();
 $estilos->styles();
 
 ?>
 
-<script language=javascript> 
-function ventanaSecundaria2 (URL){ 
-   window.open(URL,"ventanaSecundaria2","width=800,height=800,scrollbars=YES") 
-} 
-</script> 
-
         
-
-<?php  
-
-
-
-if($_GET['keySOP'] AND $_GET['status']=='done'){
-
- $sSQL= "SELECT *
-FROM
-sis_ordenesSOP
-where
-keySOP='".$_GET['keySOP']."'
-    and
-    status='done'
- ";
-$result=mysql_db_query($basedatos,$sSQL);
-$myrow = mysql_fetch_array($result);
-
-
-if($myrow['keySOP']!=NULL and $myrow['status']){
-$q = "UPDATE sis_ordenesSOP set 
-status='ontransit'
-		WHERE keySOP='".$_GET['keySOP']."'";
-//$q=mysql_real_escape_string($q);
-		mysql_db_query($basedatos,$q);
-		echo mysql_error();
-echo '
-<script>                
-	window.opener.document.forms["ontransit"].submit();
-</script>';                
-	}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-
-
-$date=$_GET['fecha1'];$entidad=$_GET['entidad'];?>
-
-<?php  
-
-
-
-
-
-if($_GET['keySOP'] AND $_GET['status']=='request'){
-
- $sSQL= "SELECT *
-FROM
-sis_ordenesSOP
-where
-keySOP='".$_GET['keySOP']."'
-    and
-    status='request'
- ";
-$result=mysql_db_query($basedatos,$sSQL);
-$myrow = mysql_fetch_array($result);
-
-
-if($myrow['keySOP']!=NULL and $myrow['status']){
-$q = "UPDATE sis_ordenesSOP set 
-status='ontransit'
-		WHERE keySOP='".$_GET['keySOP']."'";
-//$q=mysql_real_escape_string($q);
-		mysql_db_query($basedatos,$q);
-		echo mysql_error();
-echo '
-<script>                
-	window.opener.document.forms["ontransit"].submit();
-</script>';	
-	}
-
-
-
-}
-
-
-$date=$_GET['fecha1'];$entidad=$_GET['entidad'];?>
-
-
-
 <?php 
-if($_GET['keySOP'] AND $_GET['status']=='ontransit'){
-$q=mysql_real_escape_string($q);
- $sSQL= "SELECT *
-FROM
-sis_ordenesSOP
-where
-keySOP='".$_GET['keySOP']."'
-    and
-    status='ontransit'
- ";
+
+
+if($_POST['generaOrden']!=NULL){
+    
+    
+    
+
+    
+if($_POST['entidad']!=NULL and $_POST['almacen']!=NULL and $_POST['keyTS']!=NULL and $_POST['registro']!=NULL and $_POST['nombre']!=NULL and $_POST['observaciones']){    
+    
+    
+$q4 = "
+
+    INSERT INTO sis_contadorOrdenesSOP(contador, usuario)
+    SELECT(IFNULL((SELECT count(*)+1 from sis_contadorOrdenesSOP ), 1)), '".$usuario."'
+
+    ";
+    mysql_db_query($basedatos,$q4);
+    echo mysql_error();
+
+$sSQL= "SELECT max(contador) as topeMaximo from sis_contadorOrdenesSOP where usuario='".$usuario."' order by keyConta DESC";
 $result=mysql_db_query($basedatos,$sSQL);
 $myrow = mysql_fetch_array($result);
+$solicitud= $myrow['topeMaximo'];       
+    
+    
 
+$sSQL1da= "Select * From almacenes WHERE entidad='".$_POST['entidad']."' and almacen = '".$_POST['almacen']."'";
+$result1da=mysql_db_query($basedatos,$sSQL1da);
+$myrow1da = mysql_fetch_array($result1da); 
 
-if($myrow['keySOP']!=NULL and $myrow['status']){
-$q = "UPDATE sis_ordenesSOP set 
-status='done'
-		WHERE keySOP='".$_GET['keySOP']."'";
-//$q=mysql_real_escape_string($q);
-		mysql_db_query($basedatos,$q);
-		echo mysql_error();
-                
-echo '
-<script>                
-	window.opener.document.forms["done"].submit();
-</script>';
-}
-}
-?>
+$sSQL1de= "Select * From sis_tipoSoporte WHERE keyTS = '".$_POST['keyTS']."'";
+$result1de=mysql_db_query($basedatos,$sSQL1de);
+$myrow1de = mysql_fetch_array($result1de); 
 
-<script>
-function wopen(url, name, w, h)
-{
-  // Fudge factors for window decoration space.
-  // In my tests these work well on all platforms & browsers.
-  w += 32;
-  h += 96;
-  wleft = (screen.width - w) / 2;
-  wtop = (screen.height - h) / 2;
-  // IE5 and other old browsers might allow a window that is
-  // partially offscreen or wider than the screen. Fix that.
-  // (Newer browsers fix this for us, but let's be thorough.)
-  if (wleft < 0) {
-    w = screen.width;
-    wleft = 0;
-  }
-  if (wtop < 0) {
-    h = screen.height;
-    wtop = 0;
-  }
-  var win = window.open(url,
-    name,
-    'width=' + w + ', height=' + h + ', ' +
-    'left=' + wleft + ', top=' + wtop + ', ' +
-    'location=no, menubar=no, ' +
-    'status=no, toolbar=no, scrollbars=no, resizable=no');
-  // Just in case width and height are ignored
-  win.resizeTo(w, h);
-  // Just in case left and top are ignored
-  win.moveTo(wleft, wtop);
-  win.focus();
-}
+$agrega = "INSERT INTO sis_ordenesSOP (
+solicitud,entidadSolicitud,almacen,keyTS,registro,nombre,usuario,fecha,hora,entidad,descripcionAlmacen,descripcionSoporte,status,observaciones
+) values (
+'".$solicitud."','".$_POST['entidad']."','".$_POST['almacen']."','".$_POST['keyTS']."',
+'".$_POST['registro']."','".$_POST['nombre']."','".$usuario."','".$fecha1."',
+'".$hora1."','".$entidad."','".$myrow1da['descripcion']."','".$myrow1de['descripcion']."','request',
+    '".$_POST['observaciones']."'
+)";
+mysql_db_query($basedatos,$agrega);
+echo mysql_error();
+$in="success";
 
-</script>
+ //echo '<a class="close" data-dismiss="success" href="#" aria-hidden="true">Solicitud recibida</a>';
 
-
-
-
-
-
-
-
-
-
-
-
-<?php
-/*
-$alturaMinima=400;
-
- $sSQL= "SELECT *
-FROM
-sis_ordenesSOP
-where
-entidad='".$entidad."'
-and
-status='request'
- ";
-$result=mysql_db_query($basedatos,$sSQL);
-$totalRequest = mysql_num_rows($result);
-
-
-$sSQL= "SELECT *
-FROM
-sis_ordenesSOP
-where
-entidad='".$entidad."'
-and
-status='ontransit'
- ";
-$result=mysql_db_query($basedatos,$sSQL);
-$totalontransit = mysql_num_rows($result);
-
- $sSQL= "SELECT *
-FROM
-sis_ordenesSOP
-where
-entidad='".$entidad."'
-and
-status='done'
- ";
-$result=mysql_db_query($basedatos,$sSQL);
-$totaldone = mysql_num_rows($result);
-
-if($totaldone>0 || $totalRequest>0 || $totalontransit>0){
-    $altura=NULL;
 }else{
-    $altura=$alturaMinima;
+$in="warning";
+}    
+}  else {
+$in=null;    
 }
-*/
+
+
 ?>
-
-
-
 
 
 
@@ -245,394 +81,491 @@ if($totaldone>0 || $totalRequest>0 || $totalontransit>0){
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!--
--->
-<link href="../js/styleTabs.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/jquery-1.2.6.min.js"></script>
-<script type="text/javascript" src="../js/jquery-ui-personalized-1.5.2.packed.js"></script>
-<script type="text/javascript" src="../js/sprinkle.js"></script>
-<script src="../js/jquery-1.7.2.min.js"></script>
-<script>
-    var $j = jQuery.noConflict();
-$j(document).ready(function() {
-    $j("#content div").hide(); // Initially hide all content
-    $j("#tabs li:first").attr("id","current"); // Activate first tab
-    $j("#content div:first").fadeIn(); // Show first tab content
-    
-    $j('#tabs a').mouseover(function(e) {
-        e.preventDefault();
-        if ($j(this).closest("li").attr("id") == "current"){ //detection for current tab
-         return       
-        }
-        else{             
-        $j("#content div").hide(); //Hide all content
-        $j("#tabs li").attr("id",""); //Reset id's
-        $j(this).parent().attr("id","current"); // Activate this
-        $j('#' + $j(this).attr('name')).fadeIn(); // Show content for current tab
-        }
-    });
-});
-</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </head>
 <body>
     
     
-    
-    
-    
-    <br></br>
-<?php     
-$q=mysql_real_escape_string($q);
-?>
-    <!--<div class="contenido_pagina">-->
-    <div class="page_right">
-        <div class="clearfix tabs">
-            <ul id="tabs" class="tabs_navigation clearfix">
-                <li ><a href="#1" name="tab1">Nueva Orden +</a></li>
-                <li ><a href="#2" name="tab2">Pendientes</a></li>
-                <li ><a href="#3" name="tab3">En Proceso</a></li>
-                <li ><a href="#4" name="tab4">Terminadas</a></li>
-            </ul>
-        </div>
-       <!--
-        <div id="moving_tab">
-            <ul id="tabs" >
-                <li ><a href="#1" name="tab1">Nueva Orden +</a></li>
-                <li ><a href="#2" name="tab2">Pendientes</a></li>
-                <li ><a href="#3" name="tab3">En Proceso</a></li>
-                <li ><a href="#4" name="tab4">Terminadas</a></li>  
-            </ul>
-        </div>
-       -->
-    
-    
-    
-    
-    
-    
-    
 
 
 
+    <div class="container">    
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div id="content"> 
-    <div id="tab1">
-        
-<style>
-    
-
-/* 
-    Document   : cssTab
-    Created on : Feb 19, 2013, 4:27:15 PM
-    Author     : wake
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
-body
-{
-    width: 700px;
-    margin: 0px auto 0 auto;
-    font-family: Arial, Helvetica;
-    font-size: small;
-	background: #444;
-}
-
-/* ------------------------------------------------- */
-
-#tabs{
-  overflow: hidden;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-#tabs li{
-  float: left;
-  margin: 0 .5em 0 0;
-}
-
-
-
-
-
-
-
-#content
-{
-    background: #fff;
-    padding: 2em;
-    
-	position: relative;
-	z-index: 2;	
-    -moz-border-radius: 0 5px 5px 5px;
-    -webkit-border-radius: 0 5px 5px 5px;
-    border-radius: 0 5px 5px 5px;
-    -moz-box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
-    -webkit-box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
-    box-shadow: 0 -2px 3px -2px rgba(0, 0, 0, .5);
-}
-
-
-
-
-
-
-
-
-
-
-#tabs a{
-  position: relative;
-  background: #ddd;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
-  background-image: -webkit-linear-gradient(top, #fff, #ddd);
-  background-image: -moz-linear-gradient(top, #fff, #ddd);
-  background-image: -ms-linear-gradient(top, #fff, #ddd);
-  background-image: -o-linear-gradient(top, #fff, #ddd);
-  background-image: linear-gradient(to bottom, #fff, #ddd); 
-  padding: .7em 3.5em;
-  float: left;
-  text-decoration: none;
-  color: #444;
-  text-shadow: 0 1px 0 rgba(255,255,255,.8);
-  -webkit-border-radius: 5px 0 0 0;
-  -moz-border-radius: 5px 0 0 0;
-  border-radius: 5px 0 0 0;
-  -moz-box-shadow: 0 2px 2px rgba(0,0,0,.4);
-  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.4);
-  box-shadow: 0 2px 2px rgba(0,0,0,.4);
-}
-
-#tabs a:hover,
-#tabs a:hover::after,
-#tabs a:focus,
-#tabs a:focus::after{
-  /*background: #fff;*/
-}
-
-#tabs a:focus{
-  outline: 0;
-}
-
-#tabs a::after{
-  content:'';
-  position:absolute;
-  z-index: 1;
-  top: 0;
-  right: -.5em;  
-  bottom: 0;
-  width: 1em;
-  background: #ddd;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
-  background-image: -webkit-linear-gradient(top, #fff, #ddd);
-  background-image: -moz-linear-gradient(top, #fff, #ddd);
-  background-image: -ms-linear-gradient(top, #fff, #ddd);
-  background-image: -o-linear-gradient(top, #fff, #ddd);
-  background-image: linear-gradient(to bottom, #fff, #ddd);  
-  -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
-  -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
-  box-shadow: 2px 2px 2px rgba(0,0,0,.4);
-  -webkit-transform: skew(10deg);
-  -moz-transform: skew(10deg);
-  -ms-transform: skew(10deg);
-  -o-transform: skew(10deg);
-  transform: skew(10deg);
-  -webkit-border-radius: 0 5px 0 0;
-  -moz-border-radius: 0 5px 0 0;
-  border-radius: 0 5px 0 0;  
-}
-
-#tabs #current a{
-  background: #fff;
-  z-index: 3;
-}
-
-#tabs #current a::after{
-  background: #fff;
-  z-index: 3;
-}
-
-/* ------------------------------------------------- */
-
-
-
-
-
-
-
-
-
-
-
-
-#content h2, #content h3, #content p
-{
-    margin: 0 0 15px 0;
-}
-
-/* ------------------------------------------------- */
-
-#about
-{
-    color: #999;
-}
-
-#about a
-{
-    color: #eee;
-}
-
-    
-    
-    
-</style>        
-        
-           
-        
-        
-        
- <style type="text/css">
-      .content .left{
-        float:left;
-        width:100px;
-        background-color:green;
-      }
-      .content .right{
-        margin-left:100px;
-        background-color:red;
-      }
-
-    </style>         
-        
-        
-        
-        
-        
-        
-        
-        
-  
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-<iframe src="resSoporte.php?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>"  
-        frameborder="0" width="100%" height="400">
-    Si ves este mensaje, significa que tu navegador no tiene soporte para marcos o el mismo está deshabilitado.
-    </iframe>
- 
-    </div>
-    
+<div class="barra_separadora">
      
-        <?php //cierra div 1?>
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
-              
+     <span >Ordenes de soporte</span>
+     
+</div>
 
 
+        
+<?php 
+
+$menuPrimario=new menus();
+$menuPrimario->menuOperacionesBoot('../OPERACIONESHOSPITALARIAS/menuOperaciones.php?main=OPREACIONES&warehouse=sistemas&datawarehouse=','Menu Principal ','OPERACIONES','Sistemas',$rutasalir,$rutapasswd,$usuario,$entidad,$rutamenuprincipal,$tipomodulo,$rutaimagen,$basedatos);
+?>           
+   
+<br>
+
+
+<?php if(isset($info)!=NULL){
+  //echo $info;  
+}
+?>
+
+
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+    
+    <ul class="nav nav-tabs">
+        
+     
+        
+    <li class="active">
+        <a href="#tab1" data-toggle="tab">
+           Nueva  <span class="glyphicon glyphicon-plus"></span>
+
+        </a>
+    </li>
+    
+    <li>
+        <a href="#tab2" data-toggle="tab" >
+            Pendientes
+        </a>
+    </li>
+        
+        
+    <li>
+        <a href="#tab3" data-toggle="tab">
+            En Proceso
+        </a>
+    </li>  
+        
+     <li>
+        <a href="#tab4" data-toggle="tab">
+            Terminadas
+        </a>
+    </li>     
+        
+        
+        
+    </ul>
+        
+
+
+<?php
+//stat
+//actie
+if ($_GET['tab'] == 2) {
+    $i=2;
+} elseif ($_GET['tab'] == 3) {
+    $i=3;
+} elseif ($_GET['tab'] == 4) {
+    $i=4;
+}
+
+switch ($i) {
+    case 0:
+        //echo "i equals 0";
+        break;
+    case 1:
+        $stat1="active";
+        break;
+    case 2:
+        $stat2="active";
+        break;
+    case 3:
+        $stat3="active";
+        break;    
+    
+
+}
+?>
 
 
     
+    
+    
+    <div class="tab-content">
+    <div class="tab-pane <?php echo $stat1;?>" id="tab1">
 
-    <div id="tab2">
-<?php //PENDIENTES?>
+        
+        
+<div class="panel panel-default">
+    <div class="panel-heading small" >
+        <?php 
+    ?>Generar Orden, Fecha <?php echo cambia_a_normal($fecha1).'  '.$hora1;?></div>
+  
+  
+<div class="panel-body">
+        
+        
+    
+    
+    
+    
+    
+    
+    
+   
+
+   
+        <form class="form" method="post"  >
+    
+<?php if($in=='success'){?>   
+
+  <div class="panel-default">
+<div class="alert alert-success">Orden generada correctamente!
+  
+</div>
+          <br>
+<input type="Submit" name="aceptar" value="Aceptar" class="btn btn-primary btn-small"></input>  
+  </div>
 
 
-<form name="request">
-<br>
-  <table width="600"  cellspacing="0" cellpadding="0" align="center" >
+<?php }else{ ?>
+    
+            
+<?php if($in=='warning'){ ?>
+
+<div class="alert alert-warning">
+    Te faltan campos por llenar!!
+
+    </div>
+<?php }?>           
+            
+            
+            
+
+  <table width="600" class="table-striped">
  
-    <tr >
-        <td ><p>#</p></td>
-        <td ><p>Fecha/Hora</p></td>
-      <td ><p>TipoSoporte</p></td>
-      <td ><p>Departamento</p></td>
-      <td ><p>RegistroPC</p></td>
-<td ><p>Status</p></td>
+ 
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+<tr>
+      <td scope="col"><div align="left"><small>Entidad</small></div></td>
+      <td scope="col"><div align="left">
+
+
+
+       	            <?php	 		
+
+               
+
+                    $sqlNombre11 = "SELECT * from entidades
+WHERE
+status='A'
+ORDER BY descripcionEntidad ASC";
+$resultaNombre11=mysql_db_query($basedatos,$sqlNombre11);
+
+
+?>          <small>
+	    <select name="entidad"  class="form-controlsmall" onChange="this.form.submit();">
+
+          <option value="">---</option>
+		  		              <?php
+  while ($rNombre11=mysql_fetch_array($resultaNombre11)){ 
+  echo mysql_error();?>
+            <option
+                  <?php   if($_POST["entidad"]==$rNombre11['codigoEntidad']){echo 'selected=""';}?>
+                value="<?php echo $rNombre11["codigoEntidad"];?>"><?php echo utf8_decode($rNombre11["descripcionEntidad"]);?></option>
+            <?php } ?>
+            </select>
+</small>
+      </div></td>
+</tr>  
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+
+    <tr>
+      <td ><div align="left"><small>Departamento</small></div></td>
+      <td >
+	            <?php	 		
+$sqlNombre11 = "SELECT * from almacenes 
+WHERE
+entidad='".$_POST['entidad']."'
+    and
+    activo='A'
+    and
+    miniAlmacen='No'
+order by descripcion ASC
+";
+$resultaNombre11=mysql_db_query($basedatos,$sqlNombre11);
+
+
+?>
+                <div align="left">
+                  <small>  
+		  <select name="almacen" class="form-controlsmall" onChange="this.form.submit();"/>
+                  <option value="">Escoje</option>
+		
+         
+            <?php
+  while ($rNombre11=mysql_fetch_array($resultaNombre11)){ 
+  echo mysql_error();?>
+            <option
+                   <?php   if($_POST["almacen"]==$rNombre11["almacen"]){ echo 'selected=""';}?>
+                value="<?php echo $rNombre11["almacen"];?>"><?php echo $rNombre11["descripcion"];?></option>
+            <?php } ?>
+            </select>
+                    </small>
+	            </div></td>
     </tr>
+      
+      
+      
+      
+      
+      
+
+      <tr>
+      <td ><div  align="left"><small>Tipo Soporte</small></div></td>
+      <td >
+        <div align="left">
+<?php	
+          
+$sqlNombre11 = "SELECT * from sis_tipoSoporte 
+order by descripcion ASC
+";
+$resultaNombre11=mysql_db_query($basedatos,$sqlNombre11);
+
+
+?>
+            <small>  
+	   <select name="keyTS" class="form-controlsmall"/>
+		    
+		
+         
+            <?php
+  while ($rNombre11=mysql_fetch_array($resultaNombre11)){ 
+  echo mysql_error();?>
+            <option
+                   <?php   if($_POST["keyTS"]==$rNombre11["keyTS"]){ echo 'selected=""';}?>
+                value="<?php echo $rNombre11["keyTS"];?>"><?php echo $rNombre11["descripcion"];?></option>
+            <?php } ?>
+            </select>
+            </small>
+        </div>
+     </td>
+    </tr>
+
+      
+      
+      
+      
+      
+      
+      
+      
+    <tr>
+      <td scope="col"><div align="left"><small>Registro</small></div></td>
+      <td scope="col"><label>
+        
+        <div align="left">
+            <?php	 		
+$sqlNombre11 = "SELECT * from sis_inventarioEqComputo 
+WHERE
+entidad='".$_POST['entidad']."'
+    and
+    departamento='".$_POST['almacen']."'
+order by registro ASC
+";
+$resultaNombre11=mysql_db_query($basedatos,$sqlNombre11);
+
+
+?>
+                <div align="left">
+                    <small>
+		  <select name="registro" class="form-controlsmall" />
+		    
+		
+         
+            <?php
+  while ($rNombre11=mysql_fetch_array($resultaNombre11)){ 
+  echo mysql_error();?>
+            <option
+                   <?php   if($_POST["registro"]==$rNombre11["registro"]){ echo 'selected=""';}?>
+                value="<?php echo $rNombre11["registro"];?>"> <?php echo $rNombre11["registro"].'  '.$rNombre11["descripcionUbicacion"];?></option>
+            <?php } ?>
+            </select>
+                    </small>     
+        </div>
+      </label></td>
+    </tr>
+    
+      
+
+      <tr>
+          
+      <td scope="col"><div align="left"><small>Extension</small></div></td>
+      <td scope="col">
+        
+        <small>
+        
+        <input class="form-control" placeholder="Extensión telefónica" id="focusedInput" type="text" name="extension" value="<?php echo $_POST['extension'];?>"></input>
+
+        </small>
+        
+      </label></td>
+    </tr>
+      
+      
+      
+    <tr>
+      <td width="152" scope="col"><div align="left"><small>Usuario</small></div></td>
+      <td width="451" scope="col"><label> </label>
+          <div align="left">
+            <input class="form-control" placeholder="Usuario Solicitante" id="focusedInput" type="text" name="nombre" value="<?php echo $_POST['nombre']; ?>"/>
+        </div></td>
+    </tr>
+    
+      
+    <tr>
+      <td width="152" scope="col"><div align="left"><small>Usuario Ejecutor</small></div></td>
+      <td width="451" scope="col"><label> </label>
+          <div align="left">
+            <input class="form-control" placeholder="Usuario quien hará el trabajo" id="focusedInput" type="text" name="usuarioAplicacion" value="<?php echo $_POST['nombre']; ?>"/>
+        </div></td>
+    </tr>      
+      
+
+    
+      <tr>
+      <td width="152" scope="col"><div align="left"><small>Observaciones</small></div></td>
+      <td width="451" >
+          <div align="left">
+            <textarea class="form-control" placeholder="Es el servicio que se ofrecerá a éste usuario" name="observaciones" cols="50" rows="5"  /><?php echo $_POST['observaciones']; ?></textarea>
+        </div></td>
+    </tr> 
+    
+        <tr>
+      <td  >&nbsp;</td>
+      <td >&nbsp;</td>
+    </tr>
+ 
+       <tr>
+      <td  >&nbsp;</td>
+      <td ><input class="btn btn-primary btn-xs" name="generaOrden" type="submit"  id="actualizar" value="Generar Orden" /></td>
+    </tr>    
+    
+  </table>
+
+   
+    
+  
+
+</form>
+<?php }?>    
+    
+    
+    
+    
+    
+    
+  
+</div>
+              </div>
+    
+    
+    </div><!--cierra nueva orden-->
+   
+    
+        
+        
+        
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+        
+        
+        
+        
+     
+        
+            <br>
+ <div class="tab-pane <?php echo $stat2;?>" id="tab2">
+        
+<div class="panel panel-default">
+    <div class="panel-heading">
+     Ordenes pendientes
+    </div>
+  
+  
+    
+     <!--pendientes-->    
+<div class="panel-body">     
+     
+
+  <table width="800"  class="table-hover" >
+ 
+    
+        <th ><small>#</small></th>
+        <th ><small>Fecha/Hora <span class="glyphicon glyphicon-time"></span>
+</small></th>
+      <th ><small>TipoSoporte <span class="glyphicon glyphicon-wrench"></span>
+</small></th>
+      <th ><small>Departamento <span class="glyphicon glyphicon-home"></span>
+</small></th>
+      <th ><small>Usuario <span class="glyphicon glyphicon-user"></span>
+</small></th>
+      <th><small>#Orden <span class="glyphicon glyphicon-dashboard"></span>
+</small></th>
+        
+<th ></th>        
+        
+<th ></th>
+   
+      
+      
+      
+      
+      
+      
 <?php	
 
 
@@ -642,16 +575,18 @@ sis_ordenesSOP
 where
 
 status='request'
+
+order by keySOP ASC
  ";
 
 
 
 
-if($result=mysql_db_query($basedatos,$sSQL)){
+$result=mysql_db_query($basedatos,$sSQL);
 while($myrow = mysql_fetch_array($result)){ 
 $numeroE=$myrow['numeroE'];
 $nCuenta=$myrow['nCuenta'];
-$a[0]+=1;
+$a2+=1;
 
 $nT=$myrow['keyClientesInternos'];
 
@@ -673,25 +608,24 @@ $myrow17d = mysql_fetch_array($result17d);*/
     
     
       <tr>
-  <td  ><p><?php echo $a[0];?></p></td>    
-   <td  ><p>
-       <?php 
-     
-		 
-		  echo cambia_a_normal($myrow['fecha']);
-                   echo '</br>';
+  <td  ><small><?php echo $a2;?></small></td>    
+   <td  ><small>
+       <?php echo cambia_a_normal($myrow['fecha']).' '.$myrow['hora'];
+             //echo '</br>';
 	
-       echo $myrow['hora'];
-       ?></p>
+       //echo $myrow['hora'];
+       ?></small>
+       
+       
    </td>  
    
    
    
    
    
-      <td ><p><?php echo $myrow['descripcionSoporte'];
-      echo '<br>';echo $myrow['keySOP'];
-?></p>
+      <td ><small><?php echo $myrow['descripcionSoporte'];
+      
+?></small>
       </td>
    
       
@@ -699,269 +633,196 @@ $myrow17d = mysql_fetch_array($result17d);*/
       
       
       <td >
-<p> 
+<small> 
 <?php
 
 
  echo $myrow['descripcionAlmacen'];
 ?>
-          </br>
-         <?php
-echo $myrow['usuario'];
-?></p>
+</small>
           	 
 		  
 		  
       </td>
      
       
-      
+            <td >
+<small> 
+<?php
+
+
+ echo $myrow['nombre'];
+?>
+</small>
+          	 
+		  
+		  
+      </td>
       
       
       
       <td >
-          <p>
+          <small>
           <?php 
 	  	 
 	
-		 echo $myrow['registro'];
-	?></p>
+		echo $myrow['keySOP'];;
+	?></small>
       </td>
       
       
+  <td>
+      
+      
+
+  <?php 
+       //echo '<br>';
+       
+       $fActual=str_replace('-',' ',$fecha1);
+       $fActual=str_replace(' ','',$fActual);
+       $fActual=(int) ($fActual);
+       
+       $fReg=str_replace('-',' ',$myrow['fecha']);
+       $fReg=str_replace(' ','',$fReg);
+       
+       $fReg=(int) ($fReg);
+       $diff=$fActual-$fReg;
+       if($diff>=3){
+       echo '<a href="#" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a>';    
+       }
+       ?>    
+  </td>
       
       
       
-      <td >
+      <td id="tabdos<?php echo $a2;?>">
           
           
           
-      <p>    
-<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request"> 
-      <?php echo $myrow['status'];?>    
+      <small>    
+<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request&tab=2#tabdos<?php echo $a2;?>"> 
+  
+    <span class="glyphicon glyphicon-hand-right" data-toggle="tooltip" title="Enviar a En Proceso!"></span>
+
 </a>      
-      </p>
+      </small>
       </td>
+  
+  
+        <td id="tabdos<?php echo $a2;?>">
+          
+          
+          
+      <small>    
+<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request&tab=2#tabdos<?php echo $a2;?>"> 
+ 
+    <span class="glyphicon glyphicon-remove"></span>
+
+</a>      
+      </small>
+      </td>
+  
+  
       
       </tr> 
-    <?php  
-    
-    }
- 
-    if($a[0]<6){
-   
-        
-        
-        if($a[0]>0){
-        for($i=0;$i<=$a[0]+6.9;$i++){?>
-
-      <tr>
-  <td  ><p></p></td>    
-   <td  >
-   </td>  
-   
-   
-   
-   
-   
-      <td >
-         
-      </td>
-   
-      
-      
-      
-      
-      <td >
-
-          	 
-		  
-		  
-      </td>
-     
-      
-      
-      
-      
-      
-      <td >
-          <p>
-   </p>
-      </td>
-      
-      
-      
-      
-      
-      <td >
-          
-          
-          
-      <p>    
-      
-      </p>
-      </td>
-      </tr>
-  
-  <?php }}else{
-      for($i=0;$i<14;$i++){?>
-
-      <tr>
-  <td  ><p></p></td>    
-   <td  >
-   </td>  
-   
-   
-   
-   
-   
-      <td >
-         
-      </td>
-   
-      
-      
-      
-      
-      <td >
-
-          	 
-		  
-		  
-      </td>
-     
-      
-      
-      
-      
-      
-      <td >
-          <p>
-   </p>
-      </td>
-      
-      
-      
-      
-      
-      <td >
-          
-          
-          
-      <p>    
-      
-      </p>
-      </td>
-      </tr>
-      <?php
-  }
-  }
-    }}
-    
-    
-    ?>
+<?php }?>
 
   </table>
-  <p align="center">&nbsp;</p>
-  
-      <input name="warehouse" type="hidden" value="<?php echo $_GET['warehouse'];?>" />        
+    
+ </div>
+</div>
+ </div>  
         
-        
-        
-        
-        
-        
-    </form>  
 
- 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        
+        
+        
+<div class="tab-pane <?php echo $stat3;?>" id="tab3">
+        
+<div class="panel panel-default">
+    <div class="panel-heading">
+     Ordenes pendientes
     </div>
+  
+  
+    
+     <!--pendientes-->    
+<div class="panel-body">     
+     
 
-              
-              
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  <table width="800"  class="table-hover" >
  
     
-           
-<div id="tab3" >
-
-    
-
-    <form name="ontransit">
+        <th ><small>#</small></th>
+        <th ><small>Fecha/Hora <span class="glyphicon glyphicon-time"></span>
+</small></th>
+      <th ><small>TipoSoporte <span class="glyphicon glyphicon-wrench"></span>
+</small></th>
+      <th ><small>Departamento <span class="glyphicon glyphicon-home"></span>
+</small></th>
+      <th ><small>Usuario <span class="glyphicon glyphicon-user"></span>
+</small></th>
+      <th><small>#Orden <span class="glyphicon glyphicon-dashboard"></span>
+</small></th>
         
-
-
-
-
-<?php  $date=$_GET['fecha1'];$entidad=$_GET['entidad'];?>
-
-<br>
-  <table width="600"  cellspacing="0" cellpadding="0" align="center" >
- 
-    <tr >
-        <td ><p>#</p></td>
-        <td ><p>Fecha/Hora</p></td>
-      <td ><p>TipoSoporte</p></td>
-      <td ><p>Departamento</p></td>
-      <td ><p>RegistroPC</p></td>
-<td ><p>Status</p></td>
-
-    </tr>
+<th ></th>        
+        
+<th ><small>
+</small></th>
+   
+      
+      
+      
+      
+      
+      
 <?php	
 
 
- $sSQL= "SELECT *
+$sSQL= "SELECT *
 FROM
 sis_ordenesSOP
 where
 
 status='ontransit'
+
+order by keySOP ASC
  ";
 
 
 
 
-if($result=mysql_db_query($basedatos,$sSQL)){
+$result=mysql_db_query($basedatos,$sSQL);
 while($myrow = mysql_fetch_array($result)){ 
 $numeroE=$myrow['numeroE'];
 $nCuenta=$myrow['nCuenta'];
-$r[0]+=1;
+$a3+=1;
 
 $nT=$myrow['keyClientesInternos'];
 
@@ -982,31 +843,25 @@ $myrow17d = mysql_fetch_array($result17d);*/
 	  ?>
     
     
-    <tr  > 
-  <td  ><p><?php echo $r[0];?></p></td>    
-   <td  ><p>
-       <?php 
-     
-		 
-		  echo cambia_a_normal($myrow['fecha']);
-                   echo '</br>';
+      <tr>
+  <td  ><small><?php echo $a3;?></small></td>    
+   <td  ><small>
+       <?php echo cambia_a_normal($myrow['fecha']).' '.$myrow['hora'];
+             //echo '</br>';
 	
-       echo $myrow['hora'];
-       ?></p>
+       //echo $myrow['hora'];
+       ?></small>
+       
+       
    </td>  
    
    
    
    
    
-      <td ><p><?php echo $myrow['descripcionSoporte'];
-      echo '<br>';echo $myrow['keySOP'];
-?>
-          
-<a  href="javascript:wopen('../ventanas/observacionesSOP.php?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>','ye', '500', '800')" onMouseover="showhint('...', this, event, '150px')">
-    Observaciones
-</a>   
-          </p>
+      <td ><small><?php echo $myrow['descripcionSoporte'];
+      
+?></small>
       </td>
    
       
@@ -1014,251 +869,187 @@ $myrow17d = mysql_fetch_array($result17d);*/
       
       
       <td >
-<p> 
+<small> 
 <?php
 
 
  echo $myrow['descripcionAlmacen'];
 ?>
-          </br>
-         <?php
-echo $myrow['usuario'];
-?></p>
+</small>
           	 
 		  
 		  
       </td>
      
       
-      
+            <td >
+<small> 
+<?php
+
+
+ echo $myrow['nombre'];
+?>
+</small>
+          	 
+		  
+		  
+      </td>
       
       
       
       <td >
-          <p>
+          <small>
           <?php 
 	  	 
 	
-		 echo $myrow['registro'];
-	?></p>
+		echo $myrow['keySOP'];;
+	?></small>
       </td>
       
       
+  <td>
+      
+      
+
+  <?php 
+       //echo '<br>';
+       
+       $fActual=str_replace('-',' ',$fecha1);
+       $fActual=str_replace(' ','',$fActual);
+       $fActual=(int) ($fActual);
+       
+       $fReg=str_replace('-',' ',$myrow['fecha']);
+       $fReg=str_replace(' ','',$fReg);
+       
+       $fReg=(int) ($fReg);
+       $diff=$fActual-$fReg;
+       if($diff>=3){
+       echo '<a href="#" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a>';    
+       }
+       ?>    
+  </td>
       
       
       
-      <td >
+      <td id="tab3<?php echo $a3;?>">
           
           
           
-      <p>    
-<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=ontransit"> 
-      <?php echo $myrow['status'];?>    
+<small>   
+<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request&tab=3#tab3"> 
+<span class="glyphicon glyphicon-hand-right" data-toggle="tooltip" title="Terminar orden.."></span>
 </a>      
-      </p>
-      </td>
-      
-      
-    </tr><?php  }}?>
-      
-    <?php  
-    
+</small>
+      </td>          
+          
+          
+          
   
-if($r[0]<6){
-   
-    
-    if($r[0]>0){
-    
-    for($i=0;$i<=$r[0]+6.9;$i++){?>
+<td>  
+<small>          
+<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request&tab=3#tab3"> 
+<span class="glyphicon glyphicon-plus" data-toggle="tooltip" title="Agregar observaciones.."></span>
+</a>      
+</small>
+      </td>
+  
+  
+        <td >
+          
+          
+          
 
-      <tr>
-  <td  ><p></p></td>    
-   <td  >
-   </td>  
-   
-   
-   
-   
-   
-      <td >
-         
       </td>
-   
+  
+  
       
-      
-      
-      
-      <td >
-
-          	 
-		  
-		  
-      </td>
-     
-      
-      
-      
-      
-      
-      <td >
-          <p>
-   </p>
-      </td>
-      
-      
-      
-      
-      
-      <td >
-          
-          
-          
-      <p>    
-      
-      </p>
-      </td>
-      </tr>
-     <?php }}
-      for($i=0;$i<=14;$i++){?>
-
-      <tr>
-  <td  ><p></p></td>    
-   <td  >
-   </td>  
-   
-   
-   
-   
-   
-      <td >
-         
-      </td>
-   
-      
-      
-      
-      
-      <td >
-
-          	 
-		  
-		  
-      </td>
-     
-      
-      
-      
-      
-      
-      <td >
-          <p>
-   </p>
-      </td>
-      
-      
-      
-      
-      
-      <td >
-          
-          
-          
-      <p>    
-      
-      </p>
-      </td>
-      </tr>
-      <?php
-}
-}
-?>
-      
+      </tr> 
+<?php }?>
 
   </table>
-  <p align="center">&nbsp;</p>
-  
-      <input name="warehouse" type="hidden" value="<?php echo $_GET['warehouse'];?>" />        
-        
-        
-        
-        
-        
-        
-    </form>    
     
-    
-    
+ </div>
 </div>
-
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-   
-<div id="tab4" >
-
-
-
-<form name="done">
-<br>
-  <table width="600"  cellspacing="0" cellpadding="0" align="center" >
+ </div><!--cerrar tab3-->     
+        
+        
  
-    <tr >
-        <td ><p>#</p></td>
-        <td ><p>Fecha/Hora</p></td>
-      <td ><p>TipoSoporte</p></td>
-      <td ><p>Departamento</p></td>
-      <td ><p>RegistroPC</p></td>
-<td ><p>Status</p></td>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+        
+ <div class="tab-pane" id="tab4">
+        
+<div class="panel panel-default">
+    <div class="panel-heading">
+     Ordenes Terminadas
+    </div>
+  
+  
+    
+     <!--pendientes-->    
+<div class="panel-body">     
+     
 
-    </tr>
+  <table width="1000"  class="table-hover" >
+ 
+    
+        <th ><small>#</small></th>
+        <th ><small>Fecha/Hora <span class="glyphicon glyphicon-time"></span>
+</small></th>
+      <th ><small>TipoSoporte <span class="glyphicon glyphicon-wrench"></span>
+</small></th>
+      <th ><small>Departamento <span class="glyphicon glyphicon-home"></span>
+</small></th>
+      <th ><small>Usuario <span class="glyphicon glyphicon-user"></span>
+</small></th>
+      <th><small>#Orden <span class="glyphicon glyphicon-dashboard"></span>
+</small></th>
+        
+<th ></th>        
+        
+<th ><small>
+</small></th>
+   
+      
+      
+      
+      
+      
+      
 <?php	
 
 
- $sSQL= "SELECT *
+$sSQL= "SELECT *
 FROM
 sis_ordenesSOP
 where
+
 status='done'
+
+
  ";
 
 
 
 
-if($result=mysql_db_query($basedatos,$sSQL)){
+$result=mysql_db_query($basedatos,$sSQL);
 while($myrow = mysql_fetch_array($result)){ 
 $numeroE=$myrow['numeroE'];
 $nCuenta=$myrow['nCuenta'];
-$b[0]+=1;
+$a4+=1;
 
 $nT=$myrow['keyClientesInternos'];
 
@@ -1279,26 +1070,25 @@ $myrow17d = mysql_fetch_array($result17d);*/
 	  ?>
     
     
-    <tr  > 
-  <td  ><p><?php echo $b[0];?></p></td>    
-   <td  ><p>
-       <?php 
-     
-		 
-		  echo cambia_a_normal($myrow['fecha']);
-                   echo '</br>';
+      <tr>
+  <td  ><small><?php echo $a4;?></small></td>    
+   <td  ><small>
+       <?php echo cambia_a_normal($myrow['fecha']).' '.$myrow['hora'];
+             //echo '</br>';
 	
-       echo $myrow['hora'];
-       ?></p>
+       //echo $myrow['hora'];
+       ?></small>
+       
+       
    </td>  
    
    
    
    
    
-      <td ><p><?php echo $myrow['descripcionSoporte'];
-      echo '<br>';echo $myrow['keySOP'];
-?></p>
+      <td ><small><?php echo $myrow['descripcionSoporte'];
+      
+?></small>
       </td>
    
       
@@ -1306,195 +1096,138 @@ $myrow17d = mysql_fetch_array($result17d);*/
       
       
       <td >
-<p> 
+<small> 
 <?php
 
 
  echo $myrow['descripcionAlmacen'];
 ?>
-          </br>
-         <?php
-echo $myrow['usuario'];
-?></p>
+</small>
           	 
 		  
 		  
       </td>
      
       
-      
+            <td >
+<small> 
+<?php
+
+
+ echo $myrow['nombre'];
+?>
+</small>
+          	 
+		  
+		  
+      </td>
       
       
       
       <td >
-          <p>
+          <small>
           <?php 
 	  	 
 	
-		 echo $myrow['registro'];
-	?></p>
+		echo $myrow['keySOP'];;
+	?></small>
       </td>
       
       
+  <td>
       
       
+
+  <?php 
+       //echo '<br>';
+       
+       $fActual=str_replace('-',' ',$fecha1);
+       $fActual=str_replace(' ','',$fActual);
+       $fActual=(int) ($fActual);
+       
+       $fReg=str_replace('-',' ',$myrow['fecha']);
+       $fReg=str_replace(' ','',$fReg);
+       
+       $fReg=(int) ($fReg);
+       $diff=$fActual-$fReg;
+       if($diff>=3){
+       echo '<a href="#" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a>';    
+       }
+       ?>    
+  </td>
       
+      
+  
+  
       <td >
           
           
           
-      <p>    
-<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=done"> 
-      <?php echo $myrow['status'];?>    
+<small>   
+<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request&tab=4"> 
+<span class="glyphicon glyphicon-hand-left" data-toggle="tooltip" title="Regresar a orden pendiente.."></span>
 </a>      
-      </p>
-      </td>
-      
+</small>
+      </td>  
   
   
-   
+  
   
       
-    </tr><?php  }}?>
- <?php  if( $b[0]<6){
-        
-  if($b[0]>0){
+      <td >
+          
+          
+          
+<small>   
+<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request&tab=4"> 
+<span class="glyphicon glyphicon-hand-right" data-toggle="tooltip" title="Terminar orden.."></span>
+</a>      
+</small>
+      </td>          
+          
+          
+          
+  
+<td>  
+<small>          
+<a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request&tab=4"> 
+<span class="glyphicon glyphicon-list" data-toggle="tooltip" title="Agregar observaciones.."></span>
+</a>      
+</small>
+      </td>
+  
+  
+        <td >
+          
+          
+          
+
+      </td>
+  
   
       
-      for($i=0;$i<=$b[0]+6.9;$i++){?>
+      </tr> 
+<?php }?>
 
-      <tr>
-  <td  ><p></p></td>    
-   <td  >
-   </td>  
-   
-   
-   
-   
-   
-      <td >
-         
-      </td>
-   
-      
-      
-      
-      
-      <td >
-
-          	 
-		  
-		  
-      </td>
-     
-      
-      
-      
-      
-      
-      <td >
-          <p>
-   </p>
-      </td>
-      
-      
-      
-      
-      
-      <td >
-          
-          
-          
-      <p>    
-      
-      </p>
-      </td>
-      </tr>
-     <?php }
-     
-     
-     }else{
-         
-      for($i=0;$i<=14;$i++){?>
-
-      <tr>
-  <td  ><p></p></td>    
-   <td  >
-   </td>  
-   
-   
-   
-   
-   
-      <td >
-         
-      </td>
-   
-      
-      
-      
-      
-      <td >
-
-          	 
-		  
-		  
-      </td>
-     
-      
-      
-      
-      
-      
-      <td >
-          <p>
-   </p>
-      </td>
-      
-      
-      
-      
-      
-      <td >
-          
-          
-          
-      <p>    
-      
-      </p>
-      </td>
-      </tr>   
-         
-     <?php
-     }
-     
-     }
-     
-     }
-     
-     
-     
-     ?>
   </table>
-  <p align="center">&nbsp;</p>
-  
-      <input name="warehouse" type="hidden" value="<?php echo $_GET['warehouse'];?>" />        
-        
-        
-        
-        
-        
-        
-    </form>        
-        
-        
-        
+    
+ </div>
 </div>
-</div>
-</div>
-<?php
-$mostrarFooter=new menus();
-$mostrarFooter->footerTemplate($usuario,$entidad,$basedatos);
-?> 
-</body>
+    
+ </div>        
+        
+        
+        
+        
+    </div><!--obligatoria- tabcontent-->
+</div><!--obligatoria-tabable-->
+    
+    
+    
+</div>    
+
+
+    
+    
+    </body>
 </html>

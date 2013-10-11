@@ -62,7 +62,7 @@ limit 0,100
             
             
 		$emp_no = $row["matricula"];
-		$name = $row["nombre"]; 
+		$name = utf8_decode($row["nombre"]); 
 		$observaciones=$row['observacionesSexo'];
 		
 		if($row['fechaNacimiento']){

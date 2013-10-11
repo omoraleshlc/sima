@@ -303,12 +303,14 @@ and
 naturaleza='C'
  and
  clientePrincipal='".$_GET['seguro']."'
+     and
+     tipoTransaccion=''
   ";
  
   $result7=mysql_db_query($basedatos,$sSQL7);
   $myrow7 = mysql_fetch_array($result7);
   
-  $sSQL7d="SELECT 
+ $sSQL7d="SELECT 
  SUM(importe*cantidad) as acumulado,sum(iva*cantidad) as ivaa
   FROM
 facturasAplicadas
@@ -320,6 +322,8 @@ and
 naturaleza='A'
     and
  clientePrincipal='".$_GET['seguro']."'
+     and
+     tipoTransaccion=''
   ";
  
   $result7d=mysql_db_query($basedatos,$sSQL7d);
@@ -327,6 +331,7 @@ naturaleza='A'
   
  $importe=($myrow7['acumulado']+$myrow7['ivaa'])-($myrow7d['acumulado']+$myrow7d['ivaa']);
  $importe=sprintf("%01.2f", $importe);
+ //$importe=3470.65;
  ?>
      <?php if($importe>0){?>
      <table>
@@ -361,7 +366,7 @@ naturaleza='A'
         <th width="600">
             
         <?php 
-        if($diff==0){  ?>
+        if($diff==0 or ($diff>=-1 and $diff<=1)){  ?>
             
             
         <div class="success" align="center">

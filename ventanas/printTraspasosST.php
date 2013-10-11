@@ -331,13 +331,13 @@ $pdf->Ln(3); //salto de linea
 
 
 
-   $sSQL3ac="SELECT *
+$sSQL3ac="SELECT *
 FROM
 precioArticulos
 WHERE 
 entidad='".$_GET['entidad']."'
 and
-codigo='".$myrow['codProcedimiento']."'
+codigo='".$myrow['codigo']."'
 order by keyC DESC
   ";
   $result3ac=mysql_db_query($basedatos,$sSQL3ac);

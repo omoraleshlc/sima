@@ -240,6 +240,8 @@ and
   numFactura='".$myrow['numFactura']."'
 and
   naturaleza='C'
+  and
+  tipoTransaccion=''
   ";
 
   $result7=mysql_db_query($basedatos,$sSQL7);
@@ -258,6 +260,8 @@ facturasAplicadas
   numFactura='".$myrow['numFactura']."'
   and
   naturaleza='A'
+  and
+  tipoTransaccion=''
   ";
 
   $result7d=mysql_db_query($basedatos,$sSQL7d);

@@ -70,9 +70,8 @@ $estilo->styles();
  <h1 align="center" class="titulos">Estado de Cuenta<label></label>
  Otros</h1>
  <p align="center">
-  <a href="#" onClick="javascript:ventanaSecundaria('../cargos/despliegaCargos.php?folioVenta=<?php echo $_GET['folioVenta']; ?>')">
- <?php echo $_GET['paciente'];?>
- </a>
+     
+<?php echo '  '.$_GET['paciente'];?>
  </p>
  <form id="form1" name="form1" method="post" action="">
 
@@ -83,25 +82,34 @@ $estilo->styles();
        <th width="82"  align="center">#Recibo</th>
        <th width="82"  align="center">Fecha  </th>
        <th width="385" >Concepto</th>
-       <th width="118" align="center" >Debe</th>
-       <th width="106" align="center" >Haber</th>
+       <th width="118" align="center" >Cargos</th>
+       <th width="106" align="center" >Abonos</th>
      </tr>
 	 
  <?php   
  
  
 
-  $sSQL= "Select *
+ $sSQL= "Select *
  from cargosCuentaPaciente
  where entidad='".$entidad."' 
  AND 
 (folioVenta='".$_GET['folioVenta']."' or folioVentaOtros='".$_GET['folioVenta']."')
 AND
-( tipoTransaccion='totros' or tipoTransaccion='abotros' or tipoTransaccion='devotr'
-or
-tipoTransaccion='HLCAJOTR' or tipoTransaccion='AJOXINCDEV'
+( 
+
+(
+tipoTransaccion='abotros' or
+tipoTransaccion='totros' or 
+tipoTransaccion='devotr' or 
+tipoTransaccion='AJOXINCDEV' or
+tipoTransaccion='devotr' or 
+tipoTransaccion='HLCAJOTR' or
+tipoTransaccion='devtotros'
 )
-  
+)
+  and
+  (folioVenta!='' or folioVentaOtros!='')
  and
  gpoProducto=''
  order by fecha1 ASC
@@ -152,8 +160,9 @@ if($myrow['numRecibo']){ ?>
 	   
 	   
 	   <?php //DEBE
-           if($myrow['tipoTransaccion']=='totros' or $myrow['tipoTransaccion']=='devotr' or $myrow['tipoTransaccion']=='AJOXINCDEV'){ 
-               
+           //echo $myrow['tipoTransaccion'];
+           if( $myrow['tipoTransaccion']=='totros' or $myrow['tipoTransaccion']=='devotr' or $myrow['tipoTransaccion']=='AJOXINCDEV'){ 
+             
            echo '$'.number_format($myrow['precioVenta']*$myrow['cantidad'],2);
 	   $debe[0]+=$myrow['precioVenta']*$myrow['cantidad'];
 	   }else{
@@ -171,7 +180,7 @@ if($myrow['numRecibo']){ ?>
 	   <?php //HABER
            
         
-           if($myrow['tipoTransaccion']=='HLCAJOTR' or $myrow['tipoTransaccion']=='abotros' ){ 
+           if($myrow['tipoTransaccion']=='HLCAJOTR' or $myrow['tipoTransaccion']=='abotros' or $myrow['tipoTransaccion']=='devtotros' ){ 
 
 
                
@@ -218,7 +227,11 @@ if($myrow['numRecibo']){ ?>
    </table>
    <p align="center">&nbsp;</p>
  </form>
- <p align="center">&nbsp;</p>
+ <p align="center">&nbsp;
+   <a href="#" onClick="javascript:ventanaSecundaria('../cargos/despliegaCargos.php?folioVenta=<?php echo $_GET['folioVenta']; ?>')">
+Ver Estado de Cuenta 
+ </a>
+ </p>
 
 
 

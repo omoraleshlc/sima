@@ -1,4 +1,4 @@
-<?PHP require("menuOperaciones.php"); 
+<?PHP require("/configuracion/ventanasEmergentes.php");require("/configuracion/funciones.php");
 $sSQLC= "Select status From statusCaja where entidad='".$entidad."' and usuario='".$usuario."' order by keySTC DESC ";
 $resultC=mysql_db_query($basedatos,$sSQLC);
 $myrowC = mysql_fetch_array($resultC);
