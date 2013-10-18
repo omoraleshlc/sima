@@ -1,4 +1,4 @@
-<?php require("/configuracion/ventanasEmergentes.php");require("/configuracion/funciones.php");
+<?php //require("/configuracion/ventanasEmergentes.php");require("/configuracion/funciones.php");
 
 
 
@@ -50,8 +50,8 @@ echo '</script>';
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
 <?php
-$estilo=new muestraEstilos();
-$estilo->styles();
+//$estilo=new muestraEstilos();
+//$estilo->styles();
 ?>
 </head>
 
@@ -64,7 +64,7 @@ $estilo->styles();
      
 <form name="forma1" method="POST">
 
-<table  width="450"  align="center">
+<table  width="450" class="form_success"  align="center">
     
       
       <td ><div align="left"></div></td>
@@ -83,7 +83,7 @@ $estilo->styles();
                         
                     
 
-              <input type="submit" value="Agregar/Cerrar" name="ADDOS"></input>
+              <input type="submit" value="Agregar/Cerrar" class="button-column" name="ADDOS"></input>
              
                 
                 </div></td>

@@ -70,14 +70,7 @@ if( $_POST['aceptar']!=null){
 
 
 
- <!-Hoja de estilos del calendario --> 
-  <link rel="stylesheet" type="text/css" media="all" href="/sima/calendario/calendar-brown.css" title="win2k-cold-1" />
-  <!-- librer�a principal del calendario --> 
- <script type="text/javascript" src="/sima/calendario/calendar.js"></script> 
- <!-- librer�a para cargar el lenguaje deseado --> 
-  <script type="text/javascript" src="/sima/calendario/lang/calendar-es.js"></script> 
-  <!-- librer�a que declara la funci�n Calendar.setup, que ayuda a generar un calendario en unas pocas l�neas de c�digo --> 
-  <script type="text/javascript" src="/sima/calendario/calendar-setup.js"></script> 
+
   
 
 
@@ -220,8 +213,6 @@ fechaCierre between '".$_POST['fechaInicial']."' and '".$_POST['fechaFinal']."'
 and
 (folioVenta!='' and folioVenta!='0')
 and
-(statusCuenta='cerrada' or statusCuenta='revision')
-and
 (tipoPaciente='interno' or tipoPaciente='urgencias')
 order by keyClientesInternos ASC
  ";
@@ -306,18 +297,22 @@ almacen='".$myrow['almacen']."'
 <td id="solicitar<?php echo $a;?>"  >
     
     
-<?php if($myrow['statusCuenta']=='revision'){?>
+<?php if($myrow['statusCuenta']!='cerrada'){?>
 <a href="?folioVenta=<?php echo $myrow['folioVenta'];?>&paciente=<?php echo ltrim($myrow['paciente']);?>&keyClientesInternos=<?php echo $myrow['keyClientesInternos'];?>&cerrar=si&main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&datawarehouse=<?php echo $_GET['datawarehouse'];?>#solicitar<?php echo $a;?>" name="solicitar<?php echo $guia;?>">
-<span class="glyphicon glyphicon-ok btn-link"><small>Cerrar</small></span>
+<small><span class="label label-warning">Cerrar</span></small>
 </a>
 <?php }else{ ?>    
 <a href="?folioVenta=<?php echo $myrow['folioVenta'];?>&paciente=<?php echo ltrim($myrow['paciente']);?>&keyClientesInternos=<?php echo $myrow['keyClientesInternos'];?>&open=si&main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&datawarehouse=<?php echo $_GET['datawarehouse'];?>#solicitar<?php echo $a;?>" name="solicitar<?php echo $guia;?>">
-<span class="glyphicon glyphicon-lock btn-link"><small>Abrir</small></span>
+<small><span class="label label-success">Abrir</span></small>
 </a>
 <?php } ?>         
 
        
       </td>
+    
+    
+
+    
       
     </tr>
         

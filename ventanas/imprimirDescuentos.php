@@ -276,16 +276,11 @@ entidad='".$_GET['entidad']."'
 and
 fecha1>='".$_GET['fechaInicial']."' and fecha1<='".$_GET['fechaFinal']."'
 and
-gpoProducto=''
-and
-statusDescuento='si'
-and
-fechaCierre!=''
-and
-naturaleza!='-'
-group by folioVenta
-
-order by folioVenta ASC
+(tipoTransaccion='DEVCXCCIAS' or tipoTransaccion='desc' or tipoTransaccion='DESCAS'
+or tipoTransaccion='candes' or tipoTransaccion='HLCAJOTR' 
+or tipoTransaccion='AJOXINCDEV' 
+)
+order by keyCAP ASC
 ";
  
 
@@ -343,6 +338,7 @@ $pdf->Cell(0,0,$myrow1se ['descripcion'],0,0,M);
 $pdf->Ln(3); //salto de linea  
 $pdf->Cell(0,0,$myrow['descripcionArticulo'],0,0,M);
 $pdf->Ln(3); //salto de linea  
+$pdf->Cell(0,0,'Recibo: '.$myrow['numRecibo'],0,0,M);
 //if($myrow1b1['nombreCompleto']){
 //$pdf->Cell(0,0,'[ '.$myrow1b1['nombreCompleto'].' ]',0,0,M);
 //$pdf->Ln(3); //salto de linea
@@ -350,6 +346,32 @@ $pdf->Ln(3); //salto de linea
 //  $pdf->Cell(0,0,'[ '.$myrow['descripcionMedico'].' ]',0,0,M);
 //$pdf->Ln(3); //salto de linea  
 //}
+
+
+
+/*
+  $sSQLd="SELECT 
+sum((precioVenta*cantidad)+(iva*cantidad)) as debe
+
+FROM
+cargosCuentaPaciente
+WHERE
+entidad='".$_GET['entidad']."'
+and
+folioVenta='".$myrow['folioVenta']."'
+    and
+(
+tipoTransaccion='candes' or tipoTransaccion='AJOXINCDEV'
+or
+tipoTransaccion='DEVCXCCIAS'
+)
+
+";
+$resultd=mysql_db_query($basedatos,$sSQLd);
+$myrowd = mysql_fetch_array($resultd); 
+
+
+
 
 
 $sSQLc="SELECT sum((precioVenta*cantidad)+(iva*cantidad)) as haber
@@ -361,35 +383,15 @@ entidad='".$_GET['entidad']."'
 and
 folioVenta='".$myrow['folioVenta']."'
 and
-statusDescuento='si'
-and
-naturaleza='A'
-and
-gpoProducto=''
+(tipoTransaccion='DESCXCCIAS' or tipoTransaccion='HLCAJOTR'
+or
+tipoTransaccion='DESCAS' or tipoTransaccion='desc')
 
 ";
 $resultc=mysql_db_query($basedatos,$sSQLc);
 $myrowc = mysql_fetch_array($resultc);
+*/
 
-  $sSQLd="SELECT 
-sum((precioVenta*cantidad)+(iva*cantidad)) as debe
-
-FROM
-cargosCuentaPaciente
-WHERE
-entidad='".$_GET['entidad']."'
-and
-folioVenta='".$myrow['folioVenta']."'
-    and
-statusDescuento='si'
-and
-naturaleza='C'
-and
-gpoProducto=''
-
-";
-$resultd=mysql_db_query($basedatos,$sSQLd);
-$myrowd = mysql_fetch_array($resultd); 
 //****************************************************************************
 
 
@@ -432,25 +434,28 @@ $myrow1b = mysql_fetch_array($result1b);
 
 
 
- $haber[0]+=$myrowc['haber'];
- $hab=$myrowc['haber'];
 
 
-$debe[0]+=$myrowd['debe'];
-$deb=$myrowd['debe'];
-
-if($deb>0){
+if($myrow['tipoTransaccion']=='candes' or $myrow['tipoTransaccion']=='AJOXINCDEV'
+or
+$myrow['tipoTransaccion']=='DEVCXCCIAS'
+){
+$debe[0]+=$myrow['precioVenta']*$myrow['cantidad'];
+$deb=$myrow['precioVenta']*$myrow['cantidad'];
 $pdf->SetX('170');
 $pdf->Cell(0,0,'$'.number_format($deb,2),0,0,M);
-}
-
-
-
-
-if($hab>0){
+} else if($myrow['tipoTransaccion']=='DESCXCCIAS' or $myrow['tipoTransaccion']=='HLCAJOTR'
+or
+$myrow['tipoTransaccion']=='DESCAS' or $myrow['tipoTransaccion']=='desc'){
+$haber[0]+=$myrow['precioVenta']*$myrow['cantidad'];
+$hab=$myrow['precioVenta']*$myrow['cantidad'];
 $pdf->SetX('190');
 $pdf->Cell(0,0,'$'.number_format($hab,2),0,0,M);
 }
+
+
+
+
 
 
 $pdf->Ln(3); //salto de linea

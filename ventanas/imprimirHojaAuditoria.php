@@ -1142,10 +1142,7 @@ entidad='".$_GET['entidad']."'
 and
 fecha1='".$fecha1."'
 and
-gpoProducto=''
-
-and
-numRecibo!=''
+tipoTransaccion!=''
 
 
 ";
