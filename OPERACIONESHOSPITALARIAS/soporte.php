@@ -14,11 +14,67 @@ $entidadMain=$entidad;
 
 if($_POST['generaOrden']!=NULL){
     
+  
     
-    
+if($_POST['entidad']!=NULL){
+$e=TRUE;
+}else{
+    $e=FALSE;
+}
+
+
+
+if($_POST['almacen']!=NULL){
+$al=TRUE;
+}else{
+$al=FALSE;    
+}
+
+
+
+
+if($_POST['keyTS']){
+    $k=TRUE;
+}else{
+    $k=FALSE;
+}
+
+
+if($_POST['registro']){
+    $r=TRUE;
+}else{
+    $r=FALSE;
+}
+
+
+
+if($_POST['nombre']){
+    $n=TRUE;
+}else{
+    $n=FALSE;
+}
+
+
+
+if($_POST['observaciones']){
+    $o=TRUE;
+}else{
+    $o=FALSE;
+}
+  
 
     
 if($_POST['entidad']!=NULL and $_POST['almacen']!=NULL and $_POST['keyTS']!=NULL and $_POST['registro']!=NULL and $_POST['nombre']!=NULL and $_POST['observaciones']){    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
 $q4 = "
@@ -266,10 +322,20 @@ $q = "DELETE FROM observacionesSOP WHERE keyS='".$_GET['keyS']."'";
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
 </head>
 <body>
     
 
+    
+    
+    
+    
+    
+
+        
     
     
     
@@ -283,32 +349,8 @@ $q = "DELETE FROM observacionesSOP WHERE keyS='".$_GET['keyS']."'";
 
 
 //require("/configuracion/ventanasEmergentes.php");?>
-<link rel="stylesheet" type="text/css" href="../bt/anylinkmenu.css" />
+           
 
-<!--<script type="text/javascript" src="../bt/menucontents.js"></script>-->
-
-<script type="text/javascript" src="../bt/anylinkmenu.js">
-
-/***********************************************
-* AnyLink JS Drop Down Menu v2.0- � Dynamic Drive DHTML code library (www.dynamicdrive.com)
-* This notice MUST stay intact for legal use
-* Visit Project Page at http://www.dynamicdrive.com/dynamicindex1/.anylinkclass.htm for full source code
-***********************************************/
-
-</script>
-
-<script type="text/javascript">
-
-//anylinkmenu.init("menu_anchors_class") //Pass in the CSS class of anchor links (that contain a sub menu)
-anylinkmenu.init("menuanchorclass")
-
-</script>
-
-
-<script>
-var anylinkmenu3={divclass:'anylinkmenucols', inlinestyle:'', linktarget:'secwin'} //Third menu variable. Same precaution.
-anylinkmenu3.cols={divclass:'column', inlinestyle:''} //menu.cols if defined creates columns of menu links segmented by keyword "efc"
-anylinkmenu3.items=[
             <?php	
 
 
@@ -342,35 +384,17 @@ group by main  ";
             $myrowmu1 = mysql_fetch_array($resultmu1);
             }
             $nT=$myrow['keyClientesInternos'];
-            echo '["'.$myrow['main'].'", "'.trim($myrowmu1['ruta']).'"],';
+            //echo '["'.$myrow['main'].'", "'.trim($myrowmu1['ruta']).'"],';
            ?>
 	   
 	
 <?php } ?>
-]
-</script>
 
 
 
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
     
     
     
@@ -379,10 +403,37 @@ group by main  ";
 
 <div class="container">    
 
+    
+    
+  
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 <div class="barra_separadora">
      
-    <span ><a href="#" class="menuanchorclass myownclass" rel="anylinkmenu3">Menu Principal</a></span>
-     
+    <!--<span ><a href="#" class="menuanchorclass myownclass" rel="anylinkmenu3">Sistema de Ordenes de Servicio</a></span>-->
+     <span >Sistema de Ordenes de Servicio</span>
 </div>
 
 
@@ -407,11 +458,11 @@ group by main  ";
     
 <ul class="nav nav-tabs" id="myTab">
 
-    <li><a href="#altaOrden" name="altaOrden">Nueva <span class="glyphicon glyphicon-plus"></span></a></li>
-    <li><a href="#pendientes" name="pendientes">Pendientes</a></li>
-    <li><a href="#enProceso" name="enProceso">En Proceso</a></li>
-    <li><a href="#terminadas" name="terminadas">Terminadas</a></li>
-    <li><a href="#resumen" name="resumen">Resumen</a></li>
+    <li><a href="#altaOrden" name="altaOrden"><small>Nueva</small> <span class="glyphicon glyphicon-plus"></span></a></li>
+    <li><a href="#pendientes" name="pendientes"><small>Pendientes</small></a></li>
+    <li><a href="#enProceso" name="enProceso"><small>En Proceso</small></a></li>
+    <li><a href="#terminadas" name="terminadas"><small>Terminadas</small></a></li>
+    <li><a href="#resumen" name="resumen"><small>Resumen</small></a></li>
 </ul>
 
     
@@ -423,17 +474,24 @@ group by main  ";
 
     
     
+    
+    
+    
+    
+    
+    
+    
     <div class="tab-pane" id="altaOrden"><!--TAB1 #altaOrden-->
             
         <br>
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             
                  
                  
                  
 
 
-<div class="panel panel-primary">
+
       <div class="panel-heading"></div>   
 
 
@@ -472,9 +530,12 @@ group by main  ";
         <?php }?>           
 
 
+                    
+       
+                    
 
 
-          <table width="600" class="table-striped">
+          <table >
 
 
 
@@ -488,8 +549,8 @@ group by main  ";
 
 
         <tr>
-              <td scope="col"><div align="left"><small>Entidad</small></div></td>
-              <td scope="col"><div align="left">
+              <td scope="col"><div align="left" ><h6>Entidad</h6></div></td>
+              <td scope="col"><div align="left" >
 
 
 
@@ -504,8 +565,8 @@ group by main  ";
         $resultaNombre11=mysql_db_query($basedatos,$sqlNombre11);
 
 
-        ?>          <small>
-                    <select name="entidad"  class="form-controlsmall" onChange="this.form.submit();">
+        ?>          
+                  <select name="entidad" class="form-control input-sm span2"  onChange="this.form.submit();">
 
                   <option value="">---</option>
                                                       <?php
@@ -515,8 +576,8 @@ group by main  ";
                           <?php   if($_POST["entidad"]==$rNombre11['codigoEntidad']){echo 'selected=""';}?>
                         value="<?php echo $rNombre11["codigoEntidad"];?>"><?php echo utf8_decode($rNombre11["descripcionEntidad"]);?></option>
                     <?php } ?>
-                    </select>
-        </small>
+                   </select>
+        <?php if($e==FALSE){echo '<img height="28" src="../bt/img/warning.jpeg" width="28" data-src="holder.js/64x64" alt="">';}?> 
               </div></td>
         </tr>  
 
@@ -538,7 +599,7 @@ group by main  ";
 
 
             <tr>
-              <td ><div align="left"><small>Departamento</small></div></td>
+              <td ><div align="left"><h6>Departamento</h6></div></td>
               <td >
                             <?php	 		
         $sqlNombre11 = "SELECT * from almacenes 
@@ -556,7 +617,7 @@ group by main  ";
         ?>
                         <div align="left">
                           <small>  
-                          <select name="almacen" class="form-controlsmall" onChange="this.form.submit();"/>
+                          <select name="almacen" class="form-control input-sm span2" onChange="this.form.submit();"/>
                           <option value="">Escoje</option>
 
 
@@ -565,7 +626,7 @@ group by main  ";
           echo mysql_error();?>
                     <option
                            <?php   if($_POST["almacen"]==$rNombre11["almacen"]){ echo 'selected=""';}?>
-                        value="<?php echo $rNombre11["almacen"];?>"><?php echo $rNombre11["descripcion"];?></option>
+                        value="<?php echo $rNombre11["almacen"];?>"><?php echo ucfirst(strtolower($rNombre11["descripcion"]));?></option>
                     <?php } ?>
                     </select>
                             </small>
@@ -579,7 +640,7 @@ group by main  ";
 
 
               <tr>
-              <td ><div  align="left"><small>Tipo Soporte</small></div></td>
+              <td ><div  align="left"><h6>Tipo Soporte</h6></div></td>
               <td >
                 <div align="left">
         <?php	
@@ -592,7 +653,7 @@ group by main  ";
 
         ?>
                     <small>  
-                   <select name="keyTS" class="form-controlsmall"/>
+                   <select name="keyTS" class="form-control input-sm span2"/>
 
 
 
@@ -601,7 +662,7 @@ group by main  ";
           echo mysql_error();?>
                     <option
                            <?php   if($_POST["keyTS"]==$rNombre11["keyTS"]){ echo 'selected=""';}?>
-                        value="<?php echo $rNombre11["keyTS"];?>"><?php echo $rNombre11["descripcion"];?></option>
+                        value="<?php echo $rNombre11["keyTS"];?>"><?php echo ucfirst(strtolower($rNombre11["descripcion"]));?></option>
                     <?php } ?>
                     </select>
                     </small>
@@ -618,7 +679,7 @@ group by main  ";
 
 
             <tr>
-              <td scope="col"><div align="left"><small>Registro</small></div></td>
+              <td scope="col"><div align="left"><h6>Registro</h6></div></td>
               <td scope="col"><label>
 
                 <div align="left">
@@ -635,8 +696,8 @@ group by main  ";
 
         ?>
                         <div align="left">
-                            <small>
-                          <select name="registro" class="form-controlsmall" />
+                        
+                          <select name="registro" class="form-control input-sm span2"/>
 
 
 
@@ -648,7 +709,7 @@ group by main  ";
                         value="<?php echo $rNombre11["registro"];?>"> <?php echo $rNombre11["registro"].'  '.$rNombre11["descripcionUbicacion"];?></option>
                     <?php } ?>
                     </select>
-                            </small>     
+                         
                 </div>
               </label></td>
             </tr>
@@ -657,12 +718,12 @@ group by main  ";
 
               <tr>
 
-              <td scope="col"><div align="left"><small>Extension</small></div></td>
+              <td scope="col"><div align="left"><h6>Extension</h6></div></td>
               <td scope="col">
 
                 <small>
 
-                <input class="form-control" placeholder="Extensión telefónica" id="focusedInput" type="text" name="extension" value="<?php echo $_POST['extension'];?>"></input>
+                    <input class="form-control input-sm span1" placeholder="<?php echo utf8_decode("0000");?>" id="focusedInput" type="text" name="extension" value="<?php echo $_POST['extension'];?>"></input>
 
                 </small>
 
@@ -672,40 +733,37 @@ group by main  ";
 
 
             <tr>
-              <td width="152" scope="col"><div align="left"><small>Usuario</small></div></td>
+              <td width="152" scope="col"><div align="left"><h6>Usuario</h6></div></td>
               <td width="451" scope="col"><label> </label>
                   <div align="left">
-                    <input class="form-control" placeholder="Usuario Solicitante" id="focusedInput" type="text" name="nombre" value="<?php echo $_POST['nombre']; ?>"/>
+                    <input class="form-control input-sm span2" placeholder="Usuario Solicitante" id="focusedInput" type="text" name="nombre" value="<?php echo $_POST['nombre']; ?>"/>
                 </div></td>
             </tr>
 
 
             <tr>
-              <td width="152" scope="col"><div align="left"><small>Usuario Ejecutor</small></div></td>
+              <td width="152" scope="col"><div align="left"><h6>Usuario Ejecutor</h6></div></td>
               <td width="451" scope="col"><label> </label>
                   <div align="left">
-                    <input class="form-control" placeholder="Usuario quien hará el trabajo" id="focusedInput" type="text" name="usuarioAplicacion" value="<?php echo $_POST['nombre']; ?>"/>
+                    <input class="form-control input-sm span2" placeholder="Usuario Ejecutor" id="focusedInput" type="text" name="usuarioAplicacion" value="<?php echo $_POST['nombre']; ?>"/>
                 </div></td>
             </tr>      
 
 
 
               <tr>
-              <td width="152" scope="col"><div align="left"><small>Observaciones</small></div></td>
+              <td width="152" scope="col"><div align="left"><h6>Observaciones</h6></div></td>
               <td width="451" >
                   <div align="left">
-                    <textarea class="form-control" placeholder="Es el servicio que se ofrecerá a éste usuario" name="observaciones" cols="50" rows="5"  /><?php echo $_POST['observaciones']; ?></textarea>
+                    <textarea name="observaciones" class="form-control input-sm span2" placeholder="Observaciones" cols="50" rows="5"  /><?php echo $_POST['observaciones']; ?></textarea>
                 </div></td>
             </tr> 
 
-                <tr>
-              <td  >&nbsp;</td>
-              <td >&nbsp;</td>
-            </tr>
+     
 
                <tr>
               <td  >&nbsp;</td>
-              <td ><input class="btn btn-primary btn-xs" name="generaOrden" type="submit"  id="actualizar" value="Generar Orden" /></td>
+              <td ><input class="btn btn-primary btn-xs span2" name="generaOrden" type="submit"  id="actualizar" value="Generar Orden" /></td>
             </tr>    
 
           </table>
@@ -723,7 +781,6 @@ group by main  ";
 
 
 
-        </div>
                       </div>   
     </div>
     
@@ -1003,7 +1060,7 @@ group by main  ";
       <div class="panel-heading"></div>     
     
     
-              <table width="800"  class="table table-condensed" >
+            <table width="800"  class="table table-condensed" >
 
 
                     <th ><small>#</small></th>
