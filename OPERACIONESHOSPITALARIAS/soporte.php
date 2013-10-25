@@ -345,6 +345,61 @@ $q = "DELETE FROM observacionesSOP WHERE keyS='".$_GET['keyS']."'";
     
     
     
+    
+    
+ 
+    
+
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script type='text/javascript' src='../bt/js/jquery.hoverIntent.minified.js'></script>
+
+<script type='text/javascript' src='../bt/js/jquery.dcmegamenu.1.2.js'></script>
+
+
+<script type="text/javascript">
+$(document).ready(function($){
+	$('#mega-menu-tut').dcMegaMenu({
+		rowItems: '3',
+		speed: 'fast'
+	});
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
 <?php 
 
 
@@ -397,8 +452,7 @@ group by main  ";
 
     
     
-    
-    
+<link href="../bt/menuPrincipal.css" rel="stylesheet" type="text/css" />
 
 
 <div class="container">    
@@ -407,6 +461,10 @@ group by main  ";
     
   
     
+<style>
+/* Demo Styles */
+.wrap {width: 960px; margin: 0 auto;}
+</style>    
     
     
     
@@ -415,8 +473,266 @@ group by main  ";
     
     
     
-    
-    
+<div class="wrap">
+<div class="dcjq-mega-menu">
+<ul id="mega-menu-tut" class="menu">
+	<li><a href="#">Inicio</a></li>
+        
+	<li><a href="#">Modulos Generales</a>
+		<ul>
+			<li id="menu-item-1"><a href="#">Coupe</a>
+				<ul>
+					<li><a href="#">Citroen C4</a></li>
+					<li><a href="#">Honda CR-Z</a></li>
+					<li><a href="#">BMW 3 Series</a></li>
+					<li><a href="#">Volvo C30</a></li>
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-2"><a href="#">Saloon</a>
+			    <ul>
+					
+					<li><a href="#">Volkswagen Passat</a></li>
+					<li><a href="#">Volvo S40</a></li>
+					<li><a href="#">Vauxhall Insignia</a></li>
+					<li><a href="#">Mitsubishi Lancer</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-3"><a href="#">Convertibles</a>
+			    <ul>
+					
+					<li><a href="#">Mini Convertible</a></li>
+					<li><a href="#">Renault Megane CC</a></li>
+					<li><a href="#">Peugeot 207 CC</a></li>
+					<li><a href="#">Volkswagen Eos</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-4"><a href="#">SUV's</a>
+			    <ul>
+					
+					<li><a href="#">Land Rover Freelander 2</a></li>
+					<li><a href="#">Audi Q5</a></li>
+					<li><a href="#">Land Rover Discovery 3</a></li>
+					<li><a href="#">Volvo XC90</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-5"><a href="#">Pickups</a>
+			    <ul>
+					<li><a href="#">Suzuki Equator</a></li>
+					<li><a href="#">Ford F-150</a></li>
+					<li><a href="#">Toyota Tacoma</a></li>
+					<li><a href="#">Nissan Frontier</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-6"><a href="#">High Performance Cars</a>
+			    <ul>
+					<li><a href="#">Lamborghini Gallardo</a></li>
+					<li><a href="#">Ferrari F430</a></li>
+					<li><a href="#">Aston Martin Vantage</a></li>
+					<li><a href="#">Porsche 911 Turbo</a></li>
+					
+				</ul>
+			</li>
+			
+		</ul>
+	</li>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+<li><a href="#">Operaciones</a>
+		<ul>
+			<li id="menu-item-1"><a href="#">Coupe</a>
+				<ul>
+					<li><a href="#">Citroen C4</a></li>
+					<li><a href="#">Honda CR-Z</a></li>
+					<li><a href="#">BMW 3 Series</a></li>
+					<li><a href="#">Volvo C30</a></li>
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-2"><a href="#">Saloon</a>
+			    <ul>
+					
+					<li><a href="#">Volkswagen Passat</a></li>
+					<li><a href="#">Volvo S40</a></li>
+					<li><a href="#">Vauxhall Insignia</a></li>
+					<li><a href="#">Mitsubishi Lancer</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-3"><a href="#">Convertibles</a>
+			    <ul>
+					
+					<li><a href="#">Mini Convertible</a></li>
+					<li><a href="#">Renault Megane CC</a></li>
+					<li><a href="#">Peugeot 207 CC</a></li>
+					<li><a href="#">Volkswagen Eos</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-4"><a href="#">SUV's</a>
+			    <ul>
+					
+					<li><a href="#">Land Rover Freelander 2</a></li>
+					<li><a href="#">Audi Q5</a></li>
+					<li><a href="#">Land Rover Discovery 3</a></li>
+					<li><a href="#">Volvo XC90</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-5"><a href="#">Pickups</a>
+			    <ul>
+					<li><a href="#">Suzuki Equator</a></li>
+					<li><a href="#">Ford F-150</a></li>
+					<li><a href="#">Toyota Tacoma</a></li>
+					<li><a href="#">Nissan Frontier</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-6"><a href="#">High Performance Cars</a>
+			    <ul>
+					<li><a href="#">Lamborghini Gallardo</a></li>
+					<li><a href="#">Ferrari F430</a></li>
+					<li><a href="#">Aston Martin Vantage</a></li>
+					<li><a href="#">Porsche 911 Turbo</a></li>
+					
+				</ul>
+			</li>
+			
+		</ul>
+	</li>        
+        
+        
+        
+        
+  <li><a href="#">Pacientes</a>
+		<ul>
+			<li id="menu-item-1"><a href="#">Coupe</a>
+				<ul>
+					<li><a href="#">Citroen C4</a></li>
+					<li><a href="#">Honda CR-Z</a></li>
+					<li><a href="#">BMW 3 Series</a></li>
+					<li><a href="#">Volvo C30</a></li>
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-2"><a href="#">Saloon</a>
+			    <ul>
+					
+					<li><a href="#">Volkswagen Passat</a></li>
+					<li><a href="#">Volvo S40</a></li>
+					<li><a href="#">Vauxhall Insignia</a></li>
+					<li><a href="#">Mitsubishi Lancer</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-3"><a href="#">Convertibles</a>
+			    <ul>
+					
+					<li><a href="#">Mini Convertible</a></li>
+					<li><a href="#">Renault Megane CC</a></li>
+					<li><a href="#">Peugeot 207 CC</a></li>
+					<li><a href="#">Volkswagen Eos</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-4"><a href="#">SUV's</a>
+			    <ul>
+					
+					<li><a href="#">Land Rover Freelander 2</a></li>
+					<li><a href="#">Audi Q5</a></li>
+					<li><a href="#">Land Rover Discovery 3</a></li>
+					<li><a href="#">Volvo XC90</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-5"><a href="#">Pickups</a>
+			    <ul>
+					<li><a href="#">Suzuki Equator</a></li>
+					<li><a href="#">Ford F-150</a></li>
+					<li><a href="#">Toyota Tacoma</a></li>
+					<li><a href="#">Nissan Frontier</a></li>
+					
+				</ul>
+			</li>
+                    
+                    
+                    
+			<li id="menu-item-6"><a href="#">High Performance Cars</a>
+			    <ul>
+					<li><a href="#">Lamborghini Gallardo</a></li>
+					<li><a href="#">Ferrari F430</a></li>
+					<li><a href="#">Aston Martin Vantage</a></li>
+					<li><a href="#">Porsche 911 Turbo</a></li>
+					
+				</ul>
+			</li>
+			
+		</ul>
+	</li>      
+        
+        
+        
+        
+        
+        
+	
+
+<li><a href="#">Cerrar Sesion</a></li>
+</ul>
+</div> 
+</div>    
     
     
     
@@ -577,7 +893,7 @@ group by main  ";
                         value="<?php echo $rNombre11["codigoEntidad"];?>"><?php echo utf8_decode($rNombre11["descripcionEntidad"]);?></option>
                     <?php } ?>
                    </select>
-        <?php if($e==FALSE){echo '<img height="28" src="../bt/img/warning.jpeg" width="28" data-src="holder.js/64x64" alt="">';}?> 
+        <?php //if($e==FALSE){echo '<img height="28" src="../bt/img/warning.jpeg" width="28" data-src="holder.js/64x64" alt="">';}?> 
               </div></td>
         </tr>  
 
@@ -824,7 +1140,7 @@ group by main  ";
                 </div>     
 
 
-          <table width="800"  class="table table-condensed" >
+          <table width="800"  class="table table-condensed table-hover" >
 
               <form>
                 <th ><small>#</small></th>
@@ -891,22 +1207,22 @@ group by main  ";
 
               <tr>
               <td >
-                  <small>
+                  <h6>
                   <?php 
 
 
                         echo $myrow['keySOP'];;
-                ?></small>
+                ?></h6>
               </td>
                   
                   
                   
-           <td  ><small>
+           <td  ><h6>
                <?php echo cambia_a_normal($myrow['fecha']).' '.$myrow['hora'];
                      //echo '</br>';
 
                //echo $myrow['hora'];
-               ?></small>
+               ?></h6>
 
 
            </td>  
@@ -915,9 +1231,9 @@ group by main  ";
 
 
 
-          <td ><small><?php echo ucfirst(strtolower($myrow['descripcionSoporte']));
+          <td ><h6><?php echo ucfirst(strtolower($myrow['descripcionSoporte']));
 
-        ?></small>
+        ?></h6>
               </td>
 
 
@@ -925,13 +1241,13 @@ group by main  ";
 
 
               <td >
-        <small> 
+        <h6> 
         <?php
 
 
          echo ucfirst(strtolower($myrow['descripcionAlmacen']));
         ?>
-        </small>
+        </h6>
 
 
 
@@ -939,13 +1255,13 @@ group by main  ";
 
 
                     <td >
-        <small> 
+        <h6> 
         <?php
 
 
          echo $myrow['nombre'];
         ?>
-        </small>
+        </h6>
 
 
 
@@ -973,7 +1289,7 @@ group by main  ";
                $fReg=(int) ($fReg);
                $diff=$fActual-$fReg;
                if($diff>=3){
-               echo '<a href="#pendientes" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a>';    
+               echo '<h6><a href="#pendientes" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a></h6>';    
                }
                ?>    
           </td>
@@ -984,13 +1300,13 @@ group by main  ";
 
 
 
-              <small>    
+              <h6>    
         <a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request#pendientes"> 
 
             <span class="glyphicon glyphicon-hand-right" data-toggle="tooltip" title="Enviar a En Proceso!"></span>
 
         </a>      
-              </small>
+              </h6>
               </td>
 
 
@@ -998,13 +1314,13 @@ group by main  ";
 
 
 
-              <small>    
+              <h6>    
         <a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=request#pendientes"> 
 
             <span class="glyphicon glyphicon-remove"></span>
 
         </a>      
-              </small>
+              </h6>
               </td>
 
 
@@ -1047,23 +1363,23 @@ group by main  ";
             
             
             
-            <div class="tab-pane" id="enProceso"><!--TAB3 #enProceso-->
+<div class="tab-pane" id="enProceso"><!--TAB3 #enProceso-->
                  
-                
+    <br>                
 
 
 
                  <!--pendientes-->    
-            <div class="panel-body">     
+ 
 
 <div class="panel panel-primary">
       <div class="panel-heading"></div>     
     
     
-            <table width="800"  class="table table-condensed" >
+            <table width="800"  class="table table-condensed table-hover" >
 
 
-                    <th ><small>#</small></th>
+                    <th ><small>Folio</small></th>
                     <th ><small>Fecha/Hora <span class="glyphicon glyphicon-time"></span>
             </small></th>
                   <th ><small>TipoSoporte <span class="glyphicon glyphicon-wrench"></span>
@@ -1128,13 +1444,13 @@ group by main  ";
 
 
                   <tr>
-              <td  ><small><?php echo $myrow['keySOP'];?></small></td>    
-               <td  ><small>
+              <td  ><h6><?php echo $myrow['keySOP'];?></h6></td>    
+               <td  ><h6>
                    <?php echo cambia_a_normal($myrow['fecha']).' '.$myrow['hora'];
                          //echo '</br>';
 
                    //echo $myrow['hora'];
-                   ?></small>
+                   ?></h6>
 
 
                </td>  
@@ -1143,9 +1459,9 @@ group by main  ";
 
 
 
-                  <td ><small><?php echo ucfirst(strtolower($myrow['descripcionSoporte']));
+                  <td ><h6><?php echo ucfirst(strtolower($myrow['descripcionSoporte']));
 
-            ?></small>
+            ?></h6>
                   </td>
 
 
@@ -1153,13 +1469,13 @@ group by main  ";
 
 
                   <td >
-            <small> 
+            <h6> 
             <?php
 
 
              echo ucfirst(strtolower($myrow['descripcionAlmacen']));
             ?>
-            </small>
+            </h6>
 
 
 
@@ -1167,13 +1483,13 @@ group by main  ";
 
 
                         <td >
-            <small> 
+            <h6> 
             <?php
 
 
              echo ucfirst(strtolower($myrow['nombre']));
             ?>
-            </small>
+            </h6>
 
 
 
@@ -1200,32 +1516,32 @@ group by main  ";
                    $fReg=(int) ($fReg);
                    $diff=$fActual-$fReg;
                    if($diff>=3){
-                   echo '<a href="#" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a>';    
+                   echo '<h6><a href="#" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a></h6>';    
                    }
                    ?>    
               </td>
 
 
               
-           <td id="tab3<?php echo $a3;?>">
-            <small>   
+           <td>
+            <h6>   
             <a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=ontransit#enProceso"> 
             <span class="glyphicon glyphicon-hand-left" data-toggle="tooltip" title="Terminar orden.."></span>
             </a>      
-            </small>
+            </h6>
                   </td>                 
               
               
               
               
 
-                  <td id="tab3<?php echo $a3;?>">
+                  <td >
 
 
 
             <small>   
             <a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=ontransit#enProceso"> 
-            <span class="glyphicon glyphicon-hand-right" data-toggle="tooltip" title="Terminar orden.."></span>
+                <h6><span class="glyphicon glyphicon-hand-right" data-toggle="tooltip" title="Terminar orden.."></span></h6>
             </a>      
             </small>
                   </td>          
@@ -1236,8 +1552,8 @@ group by main  ";
             <td>
   <!-- Button trigger modal -->
   <a data-toggle="modal" href="#myModal" >
-    <span class="glyphicon glyphicon-book" data-toggle="tooltip" title="Agregar observaciones..">
-        </span>
+      <h6><span class="glyphicon glyphicon-book" data-toggle="tooltip" title="Agregar observaciones..">
+        </span></h6>
   </a>
   
   
@@ -1279,7 +1595,15 @@ group by main  ";
          <td>
     <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-success" name="ADDOS" value="Guardar"></input>
+          <input type="submit"     <br>                
+
+
+
+                 <!--pendientes-->    
+ 
+
+<div class="panel panel-primary">
+      <div class="panel-heading"></div> <input class="btn btn-success" name="ADDOS" value="Guardar"></input>
         </div>        
         
     </td>   
@@ -1292,7 +1616,15 @@ group by main  ";
       
 
               
-              
+                  <br>                
+
+
+
+                 <!--pendientes-->    
+ 
+
+<div class="panel panel-primary">
+      <div class="panel-heading"></div>   
               <?php 
 
 
@@ -1343,11 +1675,11 @@ $r+=1;
     
    
    
-   <td >
+   <td ><h6>
        <?php 
             echo ucfirst(strtolower($myrowr['descripcion']));
        ?>
-  
+  </h6>
    </td>   
   
  
@@ -1357,7 +1689,7 @@ $r+=1;
      <td >
  
        <a href="soporte.php?keyS=<?php echo $myrowr['keyS'];?>&eliminarT=si&main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&datawarehouse=#enProceso"> 
- <span class="glyphicon glyphicon-remove"></span>
+           <h6><span class="glyphicon glyphicon-remove"></span></h6>
 
           </a>
    </td>
@@ -1402,7 +1734,7 @@ $r+=1;
                 
                 
                 
-             </div>
+       
            
     </div>
     
@@ -1432,20 +1764,11 @@ $r+=1;
             
             
             <div class="tab-pane" id="terminadas"><!--TAB4 #terminadas-->
-                
-         
+    <br>                
 
 
-
-                 <!--pendientes-->    
-            <div class="panel-body">     
-
-
-                
-                
-                <form name="formaTerminada" method="post">                
-                
-                
+        
+        
 <?php
 
 $encabezadoFecha=new encabezadoFechas();
@@ -1453,7 +1776,21 @@ $encabezadoFecha->headDate($fecha1);
     
 
 
-?>                
+?>           
+
+                 <!--terminadas-->    
+ 
+
+<div class="panel panel-primary">
+      <div class="panel-heading"></div>   
+ <br>  
+
+                
+                
+                <form name="formaTerminada" method="post">                
+                
+                
+             
                 
   <script type="text/javascript"> 
    Calendar.setup({ 
@@ -1472,16 +1809,14 @@ $encabezadoFecha->headDate($fecha1);
                 </form>
                 
                 
-                  <div class="panel panel-primary">
-  <!-- Default panel contents -->
-  <div class="panel-heading"></div>     
+       
                
                 
                 
-              <table width="1000"  class="table table-condensed" >
+<table  class="table table-condensed table-hover" >
 
 
-                    <th ><small>#</small></th>
+                    <th ><small>Folio</small></th>
                     <th ><small>Fecha/Hora <span class="glyphicon glyphicon-time"></span>
             </small></th>
                   <th ><small>TipoSoporte <span class="glyphicon glyphicon-wrench"></span>
@@ -1490,18 +1825,17 @@ $encabezadoFecha->headDate($fecha1);
             </small></th>
                   <th ><small>Usuario <span class="glyphicon glyphicon-user"></span>
             </small></th>
-                 
-
-            <th ></th>        
-
-            <th ></th>
-  <th ></th>
-              <th ></th>
-
+                    <th></th>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+            
 
 
 
 
+<tr>
 
             <?php	
 
@@ -1528,40 +1862,26 @@ $encabezadoFecha->headDate($fecha1);
 
             $nT=$myrow['keyClientesInternos'];
 
-
-            /*
-            $sSQL17d= "
-            SELECT 
-            *
-            FROM
-            clientesInternos
-            WHERE 
-            entidad='".$entidad."'
-            and
-            folioDevolucion = '".$myrow['folioVenta']."'
-            ";
-            $result17d=mysql_db_query($basedatos,$sSQL17d);
-            $myrow17d = mysql_fetch_array($result17d);*/
                       ?>
 
 
-                  <tr>
+                  
 
                   <td >
-                      <small>
+                      
                       <?php 
 
 
-                            echo $myrow['keySOP'];;
-                    ?></small>
+                            echo '<h6>'.$myrow['keySOP'].'</h6>';
+                    ?>
                   </td>
                       
-               <td  ><small>
-                   <?php echo cambia_a_normal($myrow['fecha']).' '.$myrow['hora'];
+               <td  >
+                   <?php echo '<h6>'.cambia_a_normal($myrow['fecha']).' '.$myrow['hora'].'</h6>';
                          //echo '</br>';
 
                    //echo $myrow['hora'];
-                   ?></small>
+                   ?>
 
 
                </td>  
@@ -1570,9 +1890,9 @@ $encabezadoFecha->headDate($fecha1);
 
 
 
-              <td ><small><?php echo ucwords(strtolower($myrow['descripcionSoporte']));
+              <td ><?php echo '<h6>'.ucfirst(strtolower($myrow['descripcionSoporte'])).'</h6>';
 
-            ?></small>
+            ?>
                   </td>
 
 
@@ -1580,13 +1900,13 @@ $encabezadoFecha->headDate($fecha1);
 
 
                   <td >
-            <small> 
+           
             <?php
 
 
-             echo ucwords(strtolower($myrow['descripcionAlmacen']));
+             echo '<h6>'.ucfirst(strtolower($myrow['descripcionAlmacen'])).'</h6>';
             ?>
-            </small>
+           
 
 
 
@@ -1594,13 +1914,13 @@ $encabezadoFecha->headDate($fecha1);
 
 
                         <td >
-            <small> 
+          
             <?php
 
 
-             echo $myrow['nombre'];
+             echo '<h6>'.$myrow['nombre'].'</h6>';
             ?>
-            </small>
+          
 
 
 
@@ -1627,7 +1947,7 @@ $encabezadoFecha->headDate($fecha1);
                    $fReg=(int) ($fReg);
                    $diff=$fActual-$fReg;
                    if($diff>=3){
-                   echo '<a href="#" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a>';    
+                   echo '<h6><a href="#" data-toggle="tooltip" title="Ya pasaron mas de 2 dias!"><img src="../bt/img/warning.jpeg" height="14" width="14"></img></a></h6>';    
                    }
                    ?>    
               </td>
@@ -1639,11 +1959,11 @@ $encabezadoFecha->headDate($fecha1);
 
 
 
-            <small>   
+           
             <a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=terminadas#terminadas"> 
-            <span class="glyphicon glyphicon-hand-left" data-toggle="tooltip" title="Regresar a orden pendiente.."></span>
+                <h6><span class="glyphicon glyphicon-hand-left" data-toggle="tooltip" title="Regresar a orden pendiente.."></span></h6>
             </a>      
-            </small>
+            
                   </td>  
 
 
@@ -1656,20 +1976,20 @@ $encabezadoFecha->headDate($fecha1);
 
             <small>   
             <a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=terminadas#terminadas"> 
-            <span class="glyphicon glyphicon-hand-right" data-toggle="tooltip" title="Terminar orden.."></span>
+                <h6><span class="glyphicon glyphicon-hand-right" data-toggle="tooltip" title="Terminar orden.."></span></h6>
             </a>      
-            </small>
+            
                   </td>          
 
 
 
 
             <td>  
-            <small>          
+                     
             <a href="<?php echo $_SERVER['PHP_SELF'];?>?main=<?php echo $_GET['main'];?>&warehouse=<?php echo $_GET['warehouse'];?>&keySOP=<?php echo $myrow['keySOP'];?>&inactiva=si&status=terminadas#terminadas"> 
-            <span class="glyphicon glyphicon-list" data-toggle="tooltip" title="Agregar observaciones.."></span>
+                <h6><span class="glyphicon glyphicon-list" data-toggle="tooltip" title="Agregar observaciones.."></span></h6>
             </a>      
-            </small>
+           
                   </td>
 
 
@@ -1687,10 +2007,9 @@ $encabezadoFecha->headDate($fecha1);
 
               </table>
  </div>
-             </div>
-             
+           
     </div>
-    
+         
     
 
 
@@ -1721,7 +2040,10 @@ $encabezadoFecha->headDate($fecha1);
     <br>
        
 
-
+  <!-- Default panel contents -->
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"></div>  
        
     
     
@@ -1731,10 +2053,7 @@ $encabezadoFecha->headDate($fecha1);
                 
 
 
-  <!-- Default panel contents -->
-<div class="panel panel-primary">
-  <!-- Default panel contents -->
-  <div class="panel-heading"></div>    
+  
      
 <table class="table"> 
     
@@ -1747,7 +2066,7 @@ $encabezadoFecha->headDate($fecha1);
 <td>    
 
 
-  <div class="col-lg-6">
+  <div class="col-lg-5">
   <div class="input-group">
       <input  type="text" name="fechaInicial" id="campo_fecha3" value="<?php
 		 if($_POST['fechaInicial']){
@@ -1755,9 +2074,9 @@ $encabezadoFecha->headDate($fecha1);
 		 } else {
 		 echo $fecha1;
 		 }
-		 ?>" class="form-control" ></input>
-         <span class="input-group-btn">
-<button class="btn btn-default btn-link btn-lg" type="button" id="lanzador3"><span class="glyphicon glyphicon-calendar"></span></button>
+		 ?>" class="form-control btn-sm" ></input>
+         <span class="input-group-btn btn-sm">
+<button class="btn btn-default btn-link btn-sm" type="button" id="lanzador3"><span class="glyphicon glyphicon-calendar"></span></button>
          </span>
   </div>
    
@@ -1771,7 +2090,8 @@ $encabezadoFecha->headDate($fecha1);
 <td> 
     
  
-  <div class="col-lg-6">
+  <div class="col-lg-5">
+      
        <div class="input-group">
       <input id="campo_fecha4" name="fechaFinal" type="text" value="<?php
 		 if($_POST['fechaFinal']){
@@ -1779,12 +2099,13 @@ $encabezadoFecha->headDate($fecha1);
 		 } else {
 		 echo $fecha1;
 		 }
-		 ?>" class="form-control" >
-         <span class="input-group-btn">
-        <button class="btn btn-default btn-link btn-lg" type="button" id="lanzador4"><span class="glyphicon glyphicon-calendar"></span></button>
+		 ?>" class="form-control btn-sm" >
+         <span class="input-group-btn btn-sm">
+        <button class="btn btn-default btn-link btn-sm" type="button" id="lanzador4"><span class="glyphicon glyphicon-calendar"></span></button>
       </span>
               
           </div>
+   
   </div>
 
 
@@ -1794,7 +2115,7 @@ $encabezadoFecha->headDate($fecha1);
     
     <td>
         <div class="col-lg-6">            
-<input data-loading-text="Cargando..." class="btn btn-primary" type="submit" name="generarReporte"  value="Generar Reporte" />
+<input data-loading-text="Cargando..." class="btn btn-primary btn-sm" type="submit" name="generarReporte"  value="Generar Reporte" />
 </div>  
     </td>
 
@@ -1802,15 +2123,16 @@ $encabezadoFecha->headDate($fecha1);
     
     
     
-     
+                    
 </table>     
   
-  
+  </form>
   
   
   
 
-<?php if($POST['generarReporte']!=NULL AND $_POST['fechaFinal']>=$_POST['fechaFinial']){?>
+<?php
+if($_POST['generarReporte']!=NULL AND $_POST['fechaFinal']>=$_POST['fechaFinial']){?>
 <iframe src="grafica1.php?fechaInicial=<?php echo $_POST['fechaInicial'];?>&fechaFinal=<?php echo $_POST['fechaFinal'];?>" name="frame1" id="frame1" 
         width="1000" height="500px" align="center" scrolling="no" frameborder="0">
     
