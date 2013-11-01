@@ -227,6 +227,7 @@ and
 numSolicitud='".$_GET['numSolicitud']."'
 and
 tipoTransaccion=''
+
 group by folioVenta
 order by folioVenta
 

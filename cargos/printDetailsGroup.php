@@ -343,6 +343,7 @@ WHERE
 entidad='".$_GET['entidad']."'
 and
 numSolicitud='".$_GET['numSolicitud']."'
+
 group by gpoProducto
 
  ";
@@ -382,6 +383,8 @@ and
   gpoProducto='".$C."'   
   and
   naturaleza='C'
+
+
   ";
  
   $result7=mysql_db_query($basedatos,$sSQL7);
@@ -402,6 +405,7 @@ and
   gpoProducto='".$C."'   
     and
   naturaleza='A'
+
   ";
  
   $result7d=mysql_db_query($basedatos,$sSQL7d);
@@ -751,6 +755,7 @@ WHERE
 entidad='".$_GET['entidad']."'
     and
     numSolicitud='".$_GET['numSolicitud']."'
+
 group by folioVenta
 ";
  
@@ -799,7 +804,7 @@ cantidadParticular>0
 }else{
 			
 		
-	
+/*	
 $sSQL7f1="
 
 
@@ -813,11 +818,7 @@ entidad='".$_GET['entidad']."'
 and
 folioVenta='".$myrow7fac['folioVenta']."'
 and
-gpoProducto=''
-and
-(naturaleza='A' or naturaleza='C')
-and
-cantidadAseguradora>0
+tipoTransaccion='DESCAS' or tipoTransaccion='
     
  ";
 
@@ -825,19 +826,71 @@ cantidadAseguradora>0
  
   $result7f1=mysql_db_query($basedatos,$sSQL7f1);
   while($myrow7f1 = mysql_fetch_array($result7f1)){
-$sSQL341= "Select * From catTTCaja WHERE codigoTT = '".$myrow7f1['tipoTransaccion']."'";
-$result341=mysql_db_query($basedatos,$sSQL341);
-$myrow341 = mysql_fetch_array($result341);
+//$sSQL341= "Select * From catTTCaja WHERE codigoTT = '".$myrow7f1['tipoTransaccion']."'";
+//$result341=mysql_db_query($basedatos,$sSQL341);
+//$myrow341 = mysql_fetch_array($result341);
     
-	if($myrow341['noFacturable']=='si' ){
+	//if($myrow341['noFacturable']=='si' ){
   	$noFacturable[0]+=$myrow7f1['precioVenta']*$myrow7f1['cantidad'];
-  	}
-  }
+  	//}
+  }*/
 }
 }//cierra el while que busca
 
 
 
+
+
+
+
+//*******************************************************************
+}//validacion del DESCUENTO
+
+
+
+
+
+
+
+//*************************OPERACIONES*****************************
+
+  $sSQL7des="SELECT 
+ SUM(importe*cantidad) as totalDescuento
+  FROM
+facturasAplicadas
+  WHERE
+entidad='".$_GET['entidad']."'
+and
+  numSolicitud='".$_GET['numSolicitud']."'
+  and
+(tipoTransaccion='DESCAS' or tipoTransaccion='DESCXCCIAS')
+
+
+  ";
+ 
+  $result7des=mysql_db_query($basedatos,$sSQL7des);
+  $myrow7des = mysql_fetch_array($result7des);
+
+
+
+
+ $sSQL7dev="SELECT 
+ SUM(importe*cantidad) as devDescuento
+  FROM
+facturasAplicadas
+  WHERE
+entidad='".$_GET['entidad']."'
+and
+  numSolicitud='".$_GET['numSolicitud']."'
+and
+tipoTransaccion='DEVCXCCIAS'
+
+  ";
+ 
+  $result7dev=mysql_db_query($basedatos,$sSQL7dev);
+  $myrow7dev = mysql_fetch_array($result7dev);
+//********************************************************************
+$descuento[0]=$myrow7des['totalDescuento']-$myrow7dev['devDescuento'];
 $totalD=$tasaCero[0]+$tasaIVA[0]+$tasaExento[0]+$sumaIVAS[0];
 $totalDescuento= $totalF1*($gravado*'0.01');
 //***********************************************
@@ -859,16 +912,16 @@ $descuentoGlobal=$descuento[0]+$ivades;
 $ivades=($iva[0]*$sacarD);
 //$tC=$tasaCero[0]*$sacarD;
 //$tI=$tasaIVA[0]*$sacarD;
-//$tE=$tasaExento[0]*$sacarD;
-
-
+//$tE=$tasaExento[0]*$sacarD;        
+        
+//DESCUENTOS RESUMEN
 
 if($descuento[0]>0){
 	$pdf->Ln(15); //salto de linea
 $pdf->SetX(22);
 $pdf->Cell(0,0,'('.'Descuento'.')',0,0,L);
 $pdf->SetX('185');
-$pdf->Cell(0,0, '-$'.number_format($descuento[0]-$ivades,2),0,0,R);
+$pdf->Cell(0,0, '$'.number_format($descuento[0],2),0,0,R);
 $pdf->Ln(3); //salto de linea
 
 if($descuento[0]>0 and $tasaIVA[0]>0){
@@ -880,17 +933,8 @@ $pdf->Cell(0,0,"(IVA Descuento"."  $".number_format($ivades,2).' )',0,0,M);
 $pdf->Ln(4); //salto de linea
 }
 //*******************************************************************
-}//validacion del DESCUENTO
 
-
-
-
-
-
-
-
-
-
+//CIERRA DESCUENTOS RESUMEN
 
 
 
@@ -923,6 +967,7 @@ WHERE
 entidad='".$_GET['entidad']."'
     and
     numSolicitud='".$_GET['numSolicitud']."'
+
 group by folioVenta
 ";
  
@@ -941,7 +986,7 @@ and
  (tipoTransaccion='pcoa1' or tipoTransaccion='pcoa2' or tipoTransaccion='pdedu1' or tipoTransaccion='pdedu2')
 and
 naturaleza='A'
-group by folioVenta
+
 ";
  
   $result7f=mysql_db_query($basedatos,$sSQL7f);
@@ -1042,12 +1087,12 @@ $pdf->Ln(4); //salto de linea
 //*tasa
 
 if( $sacarD>0 or $sacarP>0){
-	if($sacarD>0){
-		 $tasaCero[0]-=($tasaCero[0]*$sacarD);
+	if($sacarD>0){ //EN REALIDAD AFECTA SEGUROS? 1Nov2013
+		 /*$tasaCero[0]-=($tasaCero[0]*$sacarD);
 		 $tasaIVA[0]-=($tasaIVA[0]*$sacarD);
 		 $tasaExento[0]-=($tasaExento[0]*$sacarD);
-		 $iva[0]-=$iva[0]*$sacarD;
-	}elseif($sacarP>0){
+		 $iva[0]-=$iva[0]*$sacarD;*/
+	}elseif($sacarP>0){ 
 		  $tasaCero[0]-=($tasaCero[0]*$sacarP);
 		  $tasaIVA[0]-=($tasaIVA[0]*$sacarP);
 		  $tasaExento[0]-=($tasaExento[0]*$sacarP);
