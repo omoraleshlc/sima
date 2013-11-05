@@ -4,6 +4,8 @@ $resultC=mysql_db_query($basedatos,$sSQLC);
 $myrowC = mysql_fetch_array($resultC);
 
 
+$estilo=new muestraEstilosV2();
+$estilo->styles();
 
 
 if($myrowC['status']=='abierta'){ //*******************Comienzo la validaci�n*****************
