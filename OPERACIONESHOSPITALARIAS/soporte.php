@@ -352,7 +352,7 @@ $q = "DELETE FROM observacionesSOP WHERE keyS='".$_GET['keyS']."'";
 
 
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
 
 <script type='text/javascript' src='../bt/js/jquery.hoverIntent.minified.js'></script>
 

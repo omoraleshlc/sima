@@ -852,7 +852,7 @@ tipoTransaccion='DESCAS' or tipoTransaccion='
 
 
 
-//*************************OPERACIONES*****************************
+//*************************DESCUENTOS*****************************
 
   $sSQL7des="SELECT 
  SUM(importe*cantidad) as totalDescuento
